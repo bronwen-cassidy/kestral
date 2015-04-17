@@ -8,13 +8,31 @@ import javax.persistence.*;
  * Created by bronwen.cassidy on 13/04/2015.
  */
 @Entity
-@Table
+@Table (name = "companies")
 public class Company {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
+
+    @Column(name="name")
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Company() {
+    }
+
+    public Company(Long id) {
+        this.id = id;
+    }
 
     public void setId(Long id) {
         this.id = id;

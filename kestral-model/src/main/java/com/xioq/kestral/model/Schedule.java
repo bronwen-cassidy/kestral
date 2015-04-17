@@ -1,7 +1,5 @@
 package com.xioq.kestral.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -9,11 +7,16 @@ import java.util.List;
  * a schedule for any time period for the given country
  * Created by bronwen.cassidy on 13/04/2015.
  */
-@Entity
-@Table
 public class Schedule {
 
     private List<Appointment> appointments;
+    private String startDate;
+    private String endDate;
+
+    public Schedule(String startDate, String endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public List<Appointment> getAppointments() {
         return appointments;
@@ -21,5 +24,13 @@ public class Schedule {
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
     }
 }
