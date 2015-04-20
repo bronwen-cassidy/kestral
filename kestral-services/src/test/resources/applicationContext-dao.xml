@@ -9,7 +9,7 @@
 
     <context:property-placeholder location="classpath:persistence.properties"/>
 
-    <bean id="dataSource" class="org.unitils.database.DatabaseModule"/>
+    <bean id="dataSource" class="org.unitils.database.UnitilsDataSourceFactoryBean" />
 
     <bean id="dataSource2" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
