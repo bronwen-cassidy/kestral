@@ -1,5 +1,7 @@
 package com.xioq.kestral;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Schedule;
@@ -8,11 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.unitils.UnitilsJUnit4;
-import org.unitils.database.annotations.Transactional;
-import org.unitils.database.util.TransactionMode;
-import org.unitils.dbunit.annotation.DataSet;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,11 +23,12 @@ import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
-@Transactional(TransactionMode.ROLLBACK)
-public class SchedulingServiceTest extends UnitilsJUnit4 {
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
+public class SchedulingServiceTest {
 
     @Autowired
     private SchedulingService schedulingService;
+
 
     @Test
     public void testViewDailySchedule() {
@@ -42,8 +43,9 @@ public class SchedulingServiceTest extends UnitilsJUnit4 {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         assertEquals(formatter.format(LocalDateTime.now()), dailySchedule.getStartDate());
     }
+
     @Test
-    @DataSet("SchedulingServiceTest.testScheduleHasAppointments.xml")
+    @DatabaseSetup("SchedulingServiceTest.testScheduleHasAppointments.xml")
     public void testScheduleHasAppointments() {
         // add some appointments to the database - lets use dbunit
 
