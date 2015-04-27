@@ -83,9 +83,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-dbunit</artifactId>
-            <version>3.4.2</version>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.2.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
