@@ -4,6 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Company;
+import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.Schedule;
 import com.xioq.kestral.services.SchedulingService;
 import org.junit.Test;
@@ -53,5 +54,20 @@ public class SchedulingServiceImplTest {
         Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
         List<Appointment> appointments = dailySchedule.getAppointments();
         assertEquals(2, appointments.size());
+    }
+
+    @Test
+    @DatabaseSetup("SchedulingServiceImplTest.testScheduleHasAppointments.xml")
+    public void testAppointmentsHaveCorrectTimes() {
+        // add some appointments to the database - lets use dbunit
+
+        Company company = new Company(-1L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        List<Appointment> appointments = dailySchedule.getAppointments();
+        assertEquals(2, appointments.size());
+        for (Appointment appointment : appointments) {
+            // client attends an appointment with
+            Provider provider = appointment.getProvider();
+        }
     }
 }
