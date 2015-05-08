@@ -24,7 +24,7 @@ import static junit.framework.TestCase.assertNotNull;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class SchedulingServiceTest {
+public class SchedulingServiceImplTest {
 
     @Autowired
     private SchedulingService schedulingService;
@@ -45,7 +45,7 @@ public class SchedulingServiceTest {
     }
 
     @Test
-    @DatabaseSetup("SchedulingServiceTest.testScheduleHasAppointments.xml")
+    @DatabaseSetup("SchedulingServiceImplTest.testScheduleHasAppointments.xml")
     public void testScheduleHasAppointments() {
         // add some appointments to the database - lets use dbunit
 
