@@ -23,7 +23,7 @@ public class Provider {
     @JoinColumn (name = "company_id")
     private Company company;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn (name = "provider_id")
     private List<Appointment> appointments;
 

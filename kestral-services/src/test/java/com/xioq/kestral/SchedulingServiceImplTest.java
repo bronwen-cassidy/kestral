@@ -15,6 +15,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -29,7 +30,6 @@ public class SchedulingServiceImplTest {
 
     @Autowired
     private SchedulingService schedulingService;
-
 
     @Test
     public void testViewDailySchedule() {
@@ -56,18 +56,18 @@ public class SchedulingServiceImplTest {
         assertEquals(2, appointments.size());
     }
 
-    @Test
-    @DatabaseSetup("SchedulingServiceImplTest.testScheduleHasAppointments.xml")
-    public void testAppointmentsHaveCorrectTimes() {
-        // add some appointments to the database - lets use dbunit
-
-        Company company = new Company(-1L);
-        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
-        List<Appointment> appointments = dailySchedule.getAppointments();
-        assertEquals(2, appointments.size());
-        for (Appointment appointment : appointments) {
-            // client attends an appointment with
-            Provider provider = appointment.getProvider();
-        }
-    }
+//    @Test
+//    @DatabaseSetup("SchedulingServiceImplTest.testScheduleHasAppointments.xml")
+//    public void testAppointmentsHaveCorrectTimes() {
+//        // add some appointments to the database - lets use dbunit
+//
+//        Company company = new Company(-1L);
+//        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+//        List<Appointment> appointments = dailySchedule.getAppointments();
+//        assertEquals(2, appointments.size());
+//        for (Appointment appointment : appointments) {
+//            // client attends an appointment with
+//            Provider provider = appointment.getProvider();
+//        }
+//    }
 }
