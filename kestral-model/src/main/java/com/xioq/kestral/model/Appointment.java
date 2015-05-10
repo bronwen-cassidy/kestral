@@ -31,7 +31,7 @@ public class Appointment {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id", nullable = true)
     private Provider provider;
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <companies id="-1" name="BF"/>
+    <providers id="-2" first_name="Mary" second_name="OBrian"/>
+    <clients first_name="Mary" second_name="Mark" id="-1" company_id="-1"/>
+    <clients first_name="Ben" second_name="Marston" id="-2" company_id="-1"/>
+    <appointments id="-1" start_time="9:30" end_time="10:30" client_id="-1" provider_id="-2" label="x" description="further specific info 2"/>
+    <appointments id="-2" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-2" label="bio testing" description="further specific info"/>
+</dataset>
