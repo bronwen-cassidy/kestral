@@ -31,6 +31,10 @@ public class Appointment {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "provider_id", nullable = true)
+    private Provider provider;
+
     public Long getId() {
         return id;
     }
@@ -79,4 +83,11 @@ public class Appointment {
         this.client = client;
     }
 
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
 }

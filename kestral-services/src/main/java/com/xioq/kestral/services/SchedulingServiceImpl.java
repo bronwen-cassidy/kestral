@@ -29,7 +29,6 @@ public class SchedulingServiceImpl implements SchedulingService {
         // utc date
         DateTime current = new DateTime();
         String today = current.toString(DateConstants.UTC_DATE_FORMAT);
-        //        String today = DateTimeFormatter.ofPattern(DateConstants.UTC_DATE_FORMAT).format(currentDate);
         Schedule schedule = new Schedule(today, today);
         List<Appointment> appointments = dataAccessor.findAll(Appointment.class);
         schedule.setAppointments(appointments);
