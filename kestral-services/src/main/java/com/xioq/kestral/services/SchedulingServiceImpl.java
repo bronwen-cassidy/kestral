@@ -2,8 +2,9 @@ package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Company;
+import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.Schedule;
-import com.xioq.kestral.services.dao.DataAccessor;
+import com.xioq.kestral.services.dao.AppointmentDao;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ import java.util.List;
 public class SchedulingServiceImpl implements SchedulingService {
 
     @Autowired
-    private DataAccessor dataAccessor;
+    private AppointmentDao dataAccessor;
 
     public Schedule findTodaysSchedule(Company company) {
 
@@ -31,6 +32,13 @@ public class SchedulingServiceImpl implements SchedulingService {
         String today = current.toString(DateConstants.UTC_DATE_FORMAT);
         Schedule schedule = new Schedule(today, today);
         List<Appointment> appointments = dataAccessor.findAll(Appointment.class);
+        schedule.setAppointments(appointments);
+        return schedule;
+    }
+
+    public Schedule find(Provider provider, DateTime start, DateTime end) {
+        Schedule schedule = new Schedule(start.toString(DateConstants.UTC_DATE_FORMAT), end.toString(DateConstants.UTC_DATE_FORMAT));
+        List<Appointment> appointments = dataAccessor.find(start, end, provider);
         schedule.setAppointments(appointments);
         return schedule;
     }

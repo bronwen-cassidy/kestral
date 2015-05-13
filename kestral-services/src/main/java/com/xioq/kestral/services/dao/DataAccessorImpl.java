@@ -17,7 +17,7 @@ import java.util.List;
 public class DataAccessorImpl implements DataAccessor {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public <T> T findById(Long id, Class<T> clazz) {
         Session currentSession = sessionFactory.getCurrentSession();

@@ -1,6 +1,7 @@
 package com.xioq.kestral.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by bronwen.cassidy on 13/04/2015.
@@ -26,6 +27,9 @@ public class Appointment {
 
     @Column(name="description")
     private String description;
+
+    @Column(name="appointment_date")
+    private Date appointmentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)

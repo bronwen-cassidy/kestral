@@ -72,4 +72,21 @@ public class SchedulingServiceImplTest {
             assertEquals("Mary", provider.getFirstName());
         }
     }
+
+    @Test
+    @DatabaseSetup("SchedulingServiceImplTest.testAppointmentsForProvider.xml")
+    public void testAppointmentsForProvider() {
+        // add some appointments to the database - lets use dbunit
+
+        Company company = new Company(-1L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        List<Appointment> appointments = dailySchedule.getAppointments();
+        assertEquals(2, appointments.size());
+        for (Appointment appointment : appointments) {
+            // client attends an appointment with
+            Provider provider = appointment.getProvider();
+            assertNotNull(provider);
+            assertEquals("Mary", provider.getFirstName());
+        }
+    }
 }
