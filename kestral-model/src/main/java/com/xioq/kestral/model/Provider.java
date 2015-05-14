@@ -27,6 +27,13 @@ public class Provider {
     @JoinColumn (name = "provider_id")
     private List<Appointment> appointments;
 
+    public Provider() {
+    }
+
+    public Provider(Long id) {
+        this.id = id;
+    }
+
     // todo address
     // todo qualifications
 

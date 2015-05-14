@@ -1,20 +1,22 @@
-package com.xioq.kestral.services.dao;
+package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
-import org.joda.time.DateTime;
+import org.springframework.context.annotation.Configuration;
 
-import java.util.Date;
 import java.util.List;
 
 /**
- * Created by bronwen.cassidy on 13/05/2015.
+ * Created by bronwen.cassidy on 14/05/2015.
  */
-public interface AppointmentDao extends DataAccessor {
+@Configuration
+public interface AppointmentService {
 
-    List<Appointment> find(Date start, Date end, Provider provider);
+    List<Appointment> findAll(Company company);
+
+    Appointment save(Appointment appointment);
 
     List<Appointment> findAll(Provider provider);
 

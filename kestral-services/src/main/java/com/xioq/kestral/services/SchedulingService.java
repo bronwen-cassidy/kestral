@@ -6,9 +6,11 @@ import com.xioq.kestral.model.Schedule;
 import org.joda.time.DateTime;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
+
 @Configuration
 public interface SchedulingService {
 
     Schedule findTodaysSchedule(Company company);
-    Schedule find(Provider provider, DateTime start, DateTime end);
+    Schedule find(Provider provider, Date start, Date end);
 }

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,13 +32,13 @@ public class SchedulingServiceImpl implements SchedulingService {
         DateTime current = new DateTime();
         String today = current.toString(DateConstants.UTC_DATE_FORMAT);
         Schedule schedule = new Schedule(today, today);
-        List<Appointment> appointments = dataAccessor.findAll(Appointment.class);
+        List<Appointment> appointments = dataAccessor.findAll(Appointment.class, company);
         schedule.setAppointments(appointments);
         return schedule;
     }
 
-    public Schedule find(Provider provider, DateTime start, DateTime end) {
-        Schedule schedule = new Schedule(start.toString(DateConstants.UTC_DATE_FORMAT), end.toString(DateConstants.UTC_DATE_FORMAT));
+    public Schedule find(Provider provider, Date start, Date end) {
+        Schedule schedule = new Schedule(start.toString(), end.toString());
         List<Appointment> appointments = dataAccessor.find(start, end, provider);
         schedule.setAppointments(appointments);
         return schedule;

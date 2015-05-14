@@ -1,11 +1,14 @@
 package com.xioq.kestral.services.dao;
 
+import com.xioq.kestral.model.Company;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,14 +27,14 @@ public class DataAccessorImpl implements DataAccessor {
         return (T) currentSession.get(clazz, id);
     }
 
-    public <T> List<T> findAll(Class<T> clazz) {
+    public <T> List<T> findAll(Class<T> clazz, Company company) {
 
         Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.createCriteria(clazz).list();
+        return currentSession.createCriteria(clazz).add(Restrictions.eq("company", company)).list();
     }
 
-    public <T> T save(final T item) {
-        return (T) sessionFactory.getCurrentSession().save(item);
+    public <T> Serializable save(final T item) {
+        return sessionFactory.getCurrentSession().save(item);
     }
 
     public void delete(final Object object){

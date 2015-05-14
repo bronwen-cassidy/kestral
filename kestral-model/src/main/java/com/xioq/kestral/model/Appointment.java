@@ -36,6 +36,10 @@ public class Appointment {
     private Client client;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "provider_id", nullable = true)
     private Provider provider;
 
@@ -93,5 +97,21 @@ public class Appointment {
 
     public void setProvider(Provider provider) {
         this.provider = provider;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Date getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 }

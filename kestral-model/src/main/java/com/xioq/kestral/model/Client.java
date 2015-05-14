@@ -1,7 +1,5 @@
 package com.xioq.kestral.model;
 
-import com.xioq.kestral.model.Company;
-
 import javax.persistence.*;
 
 /**
@@ -13,7 +11,7 @@ public class Client {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "second_name")
@@ -23,11 +21,18 @@ public class Client {
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
-    public int getId() {
+    public Client() {
+    }
+
+    public Client(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

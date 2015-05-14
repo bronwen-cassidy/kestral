@@ -1,7 +1,9 @@
 package com.xioq.kestral.services.dao;
 
+import com.xioq.kestral.model.Company;
 import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,8 +15,8 @@ import java.util.List;
 public interface DataAccessor {
 
     <T>T findById(Long id, Class<T> clazz);
-    <T>List<T> findAll(Class<T> clazz);
-    <T> T save(final T item);
+    <T>List<T> findAll(Class<T> clazz, Company company);
+    <T> Serializable save(final T item);
     void delete(final Object object);
     <T> T merge(final T item);
     <T> void saveOrUpdate(final T item);
