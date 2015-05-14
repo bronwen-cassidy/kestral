@@ -1,9 +1,6 @@
 package com.xioq.kestral.services;
 
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Company;
-import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.model.Schedule;
+import com.xioq.kestral.model.*;
 import com.xioq.kestral.services.dao.AppointmentDao;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +36,14 @@ public class SchedulingServiceImpl implements SchedulingService {
 
     public Schedule find(Provider provider, Date start, Date end) {
         Schedule schedule = new Schedule(start.toString(), end.toString());
-        List<Appointment> appointments = dataAccessor.find(start, end, provider);
+        List<Appointment> appointments = dataAccessor.find(provider, start, end);
+        schedule.setAppointments(appointments);
+        return schedule;
+    }
+
+    public Schedule find(Client client, Date start, Date end) {
+        Schedule schedule = new Schedule(start.toString(), end.toString());
+        List<Appointment> appointments = dataAccessor.find(client, start, end);
         schedule.setAppointments(appointments);
         return schedule;
     }

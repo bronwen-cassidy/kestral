@@ -17,7 +17,7 @@ import java.util.List;
 @Repository( "appointmentDao" )
 public class AppointmentDaoImpl extends DataAccessorImpl implements AppointmentDao {
 
-    public List<Appointment> find(Date start, Date end, Provider provider) {
+    public List<Appointment> find(Provider provider, Date start, Date end) {
         Session currentSession = sessionFactory.getCurrentSession();
         return currentSession.createCriteria(Appointment.class)
                 .add(Restrictions.eq("provider", provider))
@@ -33,5 +33,13 @@ public class AppointmentDaoImpl extends DataAccessorImpl implements AppointmentD
     public List<Appointment> findAll(Client client) {
         Session currentSession = sessionFactory.getCurrentSession();
         return currentSession.createCriteria(Appointment.class).add(Restrictions.eq("client", client)).list();
+    }
+
+    public List<Appointment> find(Client client, Date start, Date end) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        return currentSession.createCriteria(Appointment.class)
+                .add(Restrictions.eq("client", client))
+                .add(Restrictions.ge("appointmentDate", start))
+                .add(Restrictions.le("appointmentDate", end)).list();
     }
 }

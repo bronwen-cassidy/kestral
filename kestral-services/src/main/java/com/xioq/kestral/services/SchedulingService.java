@@ -1,5 +1,6 @@
 package com.xioq.kestral.services;
 
+import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.Schedule;
@@ -13,4 +14,5 @@ public interface SchedulingService {
 
     Schedule findTodaysSchedule(Company company);
     Schedule find(Provider provider, Date start, Date end);
+    Schedule find(Client client, Date start, Date end);
 }

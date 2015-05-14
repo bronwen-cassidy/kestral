@@ -14,9 +14,11 @@ import java.util.List;
  */
 public interface AppointmentDao extends DataAccessor {
 
-    List<Appointment> find(Date start, Date end, Provider provider);
+    List<Appointment> find(Provider provider, Date start, Date end);
 
     List<Appointment> findAll(Provider provider);
 
     List<Appointment> findAll(Client client);
+
+    List<Appointment> find(Client client, Date start, Date end);
 }

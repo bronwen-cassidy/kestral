@@ -8,6 +8,7 @@ import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.services.AppointmentService;
 import com.xioq.kestral.services.ClientService;
+import com.xioq.kestral.services.DateConstants;
 import com.xioq.kestral.services.ProviderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
@@ -79,14 +81,64 @@ public class AppointmentServiceImplTest {
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
-    public void testUpdateAppointment() throws Exception {
-        Appointment appointment = new Appointment();
-        appointment.setClient(clientService.findById(new Long(-1)));
-        appointment.setProvider(providerService.findById(new Long(-3)));
-        appointment.setCompany(new Company(-2L));
+    public void testUpdateAppointmentNewProvider() throws Exception {
+        Appointment appointment = appointmentService.find(-8L);
+        final Provider provider = new Provider(-6L);
+        appointment.setProvider(provider);
+        appointmentService.save(appointment);
+        
+        Appointment updated = appointmentService.find(-8L);
+        assertEquals(new Long(-6), updated.getProvider().getId());
+    }
 
-        Appointment savedAppointment = appointmentService.save(appointment);
-        assertNotNull(savedAppointment.getId());
+    @Test
+    @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
+    public void testUpdateAppointmentNewTime() throws Exception {
+        Appointment appointment = appointmentService.find(-8L);
+        
+        appointment.setStartTime("13:30");
+        appointment.setEndTime("14:30");
+        
+        appointmentService.save(appointment);
+
+        Appointment updated = appointmentService.find(-8L);
+        assertEquals("13:30", updated.getStartTime());
+    }
+
+    @Test
+    @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
+    public void testUpdateAppointmentNewDateTime() throws Exception {
+        Appointment appointment = appointmentService.find(-8L);
+        appointment.setStartTime("14:30");
+        appointment.setEndTime("15:30");
+
+        final Date appointmentDate = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-06-22").toDate();
+        appointment.setAppointmentDate(appointmentDate);
+        appointmentService.save(appointment);
+
+        Appointment updated = appointmentService.find(-8L);
+        assertEquals(appointmentDate, updated.getAppointmentDate());
+    }
+
+    @Test
+    @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
+    public void testCancelAppointment() throws Exception {
+        Appointment appointment = appointmentService.find(-8L);
+        
+        // cancel means throw it away? or archive it, for now throw it away
+        boolean success = appointmentService.cancelAppointment(appointment);
+        assertEquals(Boolean.TRUE, Boolean.valueOf(success));
+    }
+
+    @Test
+    @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
+    public void testMakeAppointment() throws Exception {
+        
+        // step 1) find an available appointment slots for a given time period and company
+        
+        // step 2) select a provider from the list of available providers for the given time periods and compnay
+        // step 3) confirm the appointment
+        // step 4) make a dummy payment (we will use paypal for now)
     }
 
 }

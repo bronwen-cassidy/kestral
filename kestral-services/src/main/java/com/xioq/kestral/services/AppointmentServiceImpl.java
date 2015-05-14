@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 14/05/2015.
+ * Appointment service to handle all making, cancelling and updating of an appointment
  */
 @Configuration
 @Service( "appointmentService" )
@@ -29,8 +30,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     public Appointment save(Appointment appointment) {
-        Serializable id = dataAccessor.save(appointment);
-        appointment.setId((Long)id);
+        if (appointment.getId() == null) {
+            Serializable id = dataAccessor.save(appointment);
+            appointment.setId((Long)id);
+        } else {
+            dataAccessor.saveOrUpdate(appointment);
+        }
         return appointment;
     }
 
@@ -40,5 +45,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public List<Appointment> findAll(Client client) {
         return dataAccessor.findAll(client);
+    }
+
+    public Appointment find(Long id) {
+        return dataAccessor.findById(id, Appointment.class);
+    }
+
+    public boolean cancelAppointment(Appointment appointment) {
+        try {
+            // can apply a lot of logic here, conditions, fees etc
+            dataAccessor.delete(appointment);
+        } catch (Exception e) {
+           return false;
+        }
+        return true;
     }
 }

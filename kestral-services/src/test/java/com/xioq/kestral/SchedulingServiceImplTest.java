@@ -2,10 +2,8 @@ package com.xioq.kestral;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Company;
-import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.model.Schedule;
+import com.xioq.kestral.model.*;
+import com.xioq.kestral.services.DateConstants;
 import com.xioq.kestral.services.SchedulingService;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -43,7 +41,7 @@ public class SchedulingServiceImplTest {
         Company company = new Company(-1L);
         Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
         DateTime dt = DateTime.now();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTimeFormatter fmt = DateConstants.DATE_TIME_FORMATTER;
         assertEquals(fmt.print(dt), dailySchedule.getStartDate());
     }
 
@@ -61,7 +59,11 @@ public class SchedulingServiceImplTest {
     @Test
     @DatabaseSetup("SchedulingServiceImplTest.testScheduleSearches.xml")
     public void testFindScheduleForClient() throws Exception {
-        fail("test me");
+        Client client = new Client(-2L);
+        DateTime start = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2011-05-04");
+        DateTime end = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2016-05-08");
+        Schedule s = schedulingService.find(client, start.toDate(), end.toDate());
+        assertEquals(7, s.getAppointments().size());
     }
 
     @Test
@@ -86,7 +88,7 @@ public class SchedulingServiceImplTest {
     public void testAppointmentsForProvider() {
         // add some appointments to the database - lets use dbunit
         Provider niall = new Provider(-3L);
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateConstants.DATE_TIME_FORMATTER;
         DateTime start = formatter.parseDateTime("2015-05-04");
         DateTime end = formatter.parseDateTime("2015-05-08");
         Schedule schedule = schedulingService.find(niall, start.toDate(), end.toDate());

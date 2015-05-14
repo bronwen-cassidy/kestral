@@ -21,4 +21,8 @@ public interface AppointmentService {
     List<Appointment> findAll(Provider provider);
 
     List<Appointment> findAll(Client client);
+
+    Appointment find(Long id);
+
+    boolean cancelAppointment(Appointment appointment);
 }
