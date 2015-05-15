@@ -1,6 +1,7 @@
 package com.xioq.kestral.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class Provider {
 
     // todo address
     // todo qualifications
-
+    // todo rates, hourly or salaried should be in a strategy
 
     public Long getId() {
         return id;
@@ -76,5 +77,21 @@ public class Provider {
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Provider provider = (Provider) o;
+
+        return !(id != null ? !id.equals(provider.id) : provider.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

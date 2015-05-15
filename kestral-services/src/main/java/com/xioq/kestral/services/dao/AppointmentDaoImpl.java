@@ -4,6 +4,7 @@ import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Provider;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -22,17 +23,25 @@ public class AppointmentDaoImpl extends DataAccessorImpl implements AppointmentD
         return currentSession.createCriteria(Appointment.class)
                 .add(Restrictions.eq("provider", provider))
                 .add(Restrictions.ge("appointmentDate", start))
-                .add(Restrictions.le("appointmentDate", end)).list();
+                .add(Restrictions.le("appointmentDate", end))
+                .addOrder(Order.desc("appointmentDate")).addOrder(Order.desc("startTime"))
+                .list();
     }
 
     public List<Appointment> findAll(Provider provider) {
         Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.createCriteria(Appointment.class).add(Restrictions.eq("provider", provider)).list();
+        return currentSession.createCriteria(Appointment.class)
+                .add(Restrictions.eq("provider", provider))
+                .addOrder(Order.desc("appointmentDate")).addOrder(Order.desc("startTime"))
+                .list();
     }
 
     public List<Appointment> findAll(Client client) {
         Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.createCriteria(Appointment.class).add(Restrictions.eq("client", client)).list();
+        return currentSession.createCriteria(Appointment.class)
+                .add(Restrictions.eq("client", client))
+                .addOrder(Order.desc("appointmentDate")).addOrder(Order.desc("startTime"))
+                .list();
     }
 
     public List<Appointment> find(Client client, Date start, Date end) {
@@ -40,6 +49,8 @@ public class AppointmentDaoImpl extends DataAccessorImpl implements AppointmentD
         return currentSession.createCriteria(Appointment.class)
                 .add(Restrictions.eq("client", client))
                 .add(Restrictions.ge("appointmentDate", start))
-                .add(Restrictions.le("appointmentDate", end)).list();
+                .add(Restrictions.le("appointmentDate", end))
+                .addOrder(Order.desc("appointmentDate")).addOrder(Order.desc("startTime"))
+                .list();
     }
 }

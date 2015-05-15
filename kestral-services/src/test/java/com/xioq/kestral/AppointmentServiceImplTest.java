@@ -10,6 +10,7 @@ import com.xioq.kestral.services.AppointmentService;
 import com.xioq.kestral.services.ClientService;
 import com.xioq.kestral.services.DateConstants;
 import com.xioq.kestral.services.ProviderService;
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,14 +132,17 @@ public class AppointmentServiceImplTest {
     }
 
     @Test
-    @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
+    @DatabaseSetup("AppointmentServiceImplTest.testMakeAppointment.xml")
     public void testMakeAppointment() throws Exception {
         
-        // step 1) find an available appointment slots for a given time period and company
-        
-        // step 2) select a provider from the list of available providers for the given time periods and compnay
-        // step 3) confirm the appointment
-        // step 4) make a dummy payment (we will use paypal for now)
+        // step 1) find an available appointment slots for a given time period and company and provider
+        Company c = new Company(-2L);
+        Provider p = new Provider(-3L);
+        DateTime startPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
+        DateTime endPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
+        // we should split the availability into days??
+        List<Appointment> availableSlots = appointmentService.findAvailableAppointments(c, p, startPeriod.toDate(), endPeriod.toDate());
+        assertEquals(1, availableSlots.size());
     }
 
 }

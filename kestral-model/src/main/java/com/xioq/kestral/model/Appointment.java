@@ -114,4 +114,28 @@ public class Appointment {
     public void setAppointmentDate(Date appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Appointment that = (Appointment) o;
+
+        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
+        if (endTime != null ? !endTime.equals(that.endTime) : that.endTime != null) return false;
+        if (appointmentDate != null ? !appointmentDate.equals(that.appointmentDate) : that.appointmentDate != null)
+            return false;
+        return !(provider != null ? !provider.equals(that.provider) : that.provider != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = startTime != null ? startTime.hashCode() : 0;
+        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
+        result = 31 * result + (appointmentDate != null ? appointmentDate.hashCode() : 0);
+        result = 31 * result + (provider != null ? provider.hashCode() : 0);
+        return result;
+    }
 }

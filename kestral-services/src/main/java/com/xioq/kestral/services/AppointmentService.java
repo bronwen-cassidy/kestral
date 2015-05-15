@@ -6,6 +6,7 @@ import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface AppointmentService {
     Appointment find(Long id);
 
     boolean cancelAppointment(Appointment appointment);
+
+    List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate);
 }
