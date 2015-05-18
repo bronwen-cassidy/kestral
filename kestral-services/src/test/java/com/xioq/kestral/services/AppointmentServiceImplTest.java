@@ -1,4 +1,4 @@
-package com.xioq.kestral;
+package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -10,6 +10,7 @@ import com.xioq.kestral.services.AppointmentService;
 import com.xioq.kestral.services.ClientService;
 import com.xioq.kestral.services.DateConstants;
 import com.xioq.kestral.services.ProviderService;
+import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,7 +134,7 @@ public class AppointmentServiceImplTest {
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testMakeAppointment.xml")
-    public void testMakeAppointment() throws Exception {
+    public void testFindAvailableAppointments() throws Exception {
         
         // step 1) find an available appointment slots for a given time period and company and provider
         Company c = new Company(-2L);
@@ -142,7 +143,25 @@ public class AppointmentServiceImplTest {
         DateTime endPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
         // we should split the availability into days??
         List<Appointment> availableSlots = appointmentService.findAvailableAppointments(c, p, startPeriod.toDate(), endPeriod.toDate());
-        assertEquals(1, availableSlots.size());
+        assertEquals("There are 2 here as we have not taken into consideration the lunch period or even breaks", 2, availableSlots.size());
+    }
+
+    @Test
+    @DatabaseSetup("AppointmentServiceImplTest.testMakeAppointment.xml")
+    public void testMakeAppointment() throws Exception {
+
+        Company c = new Company(-2L);
+        Provider p = new Provider(-3L);
+        DateTime startPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
+        // take the first one
+        Client client = new Client(-2L);
+        String startTime = "11:30";
+        Appointment expected = appointmentService.makeAppointment(c, p, client, startPeriod.toDate(), startTime);
+
+        // find the appointment
+        Appointment actual = appointmentService.find(expected.getId());
+        assertEquals(expected, actual);
+
     }
 
 }

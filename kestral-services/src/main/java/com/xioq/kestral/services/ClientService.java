@@ -14,4 +14,8 @@ import java.util.List;
 public interface ClientService {
 
     Client findById(Long id);
+
+    Client save(Client client);
+
+    void update(Client expected);
 }

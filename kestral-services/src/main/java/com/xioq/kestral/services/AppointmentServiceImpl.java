@@ -2,9 +2,7 @@ package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.*;
 import com.xioq.kestral.services.dao.AppointmentDao;
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-import org.joda.time.TimeOfDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
@@ -57,6 +55,25 @@ public class AppointmentServiceImpl implements AppointmentService {
         return dataAccessor.findById(id, Appointment.class);
     }
 
+    public Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime) {
+        List<Appointment> availableAppointments = findAvailableAppointments(company, provider, date, date);
+        for (Appointment availableAppointment : availableAppointments) {
+            if(availableAppointment.getStartTime().equals(startTime)) {
+                LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(startTime);
+                Appointment available = new Appointment();
+                available.setStartTime(startTime);
+                available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
+                available.setAppointmentDate(date);
+                available.setProvider(provider);
+                available.setCompany(company);
+                available.setClient(client);
+                save(available);
+                return available;
+            }
+        }
+        return null;
+    }
+
     public List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate) {
         // get the list of all possible time periods (30 mins for now) per day for each day in the interim period
         List<Appointment> occupiedAppointments = new ArrayList<Appointment>(dataAccessor.find(provider, startDate, endDate));
@@ -65,19 +82,22 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<Appointment> availableAppointments = new ArrayList<Appointment>();
         for (WorkingDay workingDay : workingDays) {
             // for each day and each time slot find a corresponding appointment time of make a new one
-            String startTime = workingDay.getStartTime();
+
             // todo remove breaks periods?? put into configuration
-            LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(startTime);
+            LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getStartTime());
             LocalTime endOfTheDay = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getEndTime());
             LocalTime nextTime = tme;
             while (nextTime.isBefore(endOfTheDay)) {
                 // FIND AN APPOINTMENT starting at this time remove as you find
-                boolean found = filterAppointments(occupiedAppointments, workingDay.getDaysDate(), DateConstants.TIME_FORMATTER.print(nextTime));
+                String startTime = DateConstants.TIME_FORMATTER.print(nextTime);
+                boolean found = filterAppointments(occupiedAppointments, workingDay.getDaysDate(), startTime);
                 if(!found) {
                     Appointment available = new Appointment();
                     available.setStartTime(startTime);
                     available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
                     available.setAppointmentDate(workingDay.getDaysDate());
+                    available.setProvider(provider);
+                    available.setCompany(company);
                     availableAppointments.add(available);
                 }
                 nextTime = nextTime.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION);

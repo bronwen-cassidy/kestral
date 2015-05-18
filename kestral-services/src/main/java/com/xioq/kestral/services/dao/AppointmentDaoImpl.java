@@ -24,7 +24,7 @@ public class AppointmentDaoImpl extends DataAccessorImpl implements AppointmentD
                 .add(Restrictions.eq("provider", provider))
                 .add(Restrictions.ge("appointmentDate", start))
                 .add(Restrictions.le("appointmentDate", end))
-                .addOrder(Order.desc("appointmentDate")).addOrder(Order.desc("startTime"))
+                .addOrder(Order.desc("appointmentDate")).addOrder(Order.asc("startTime"))
                 .list();
     }
 

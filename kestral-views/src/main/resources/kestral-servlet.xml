@@ -19,17 +19,6 @@
        <mvc:view-controller path="/login.html" />
        <mvc:view-controller path="/logoutSuccess.html" />
 
-       <!-- tiles configuration -->
-       <bean id="tilesConfigurer"
-             class="org.springframework.web.servlet.view.tiles2.TilesConfigurer"
-             p:definitions="/WEB-INF/tiles-defs/templates.xml" />
-
-       <bean id="tilesViewResolver"
-             class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-             p:viewClass="org.springbyexample.web.servlet.view.tiles2.DynamicTilesView"
-             p:prefix="/WEB-INF/jsp/"
-             p:suffix=".jsp" />
-
        <!-- Declare the Interceptor -->
        <mvc:interceptors>
               <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"

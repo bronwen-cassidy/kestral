@@ -2,7 +2,7 @@
 
 <Context path="/kestral" docBase="kestral" reloadable="true">
     <!--<WatchedResource>WEB-INF/web.xml</WatchedResource>-->
-    <ResourceLink name="jdbc/kestral"
+    <Resource name="jdbc/kestral"
               auth="Container"
               type="javax.sql.DataSource"
               username="kestral"

@@ -9,16 +9,6 @@
 
        <context:property-placeholder location="classpath:persistence.properties" />
 
-       <jee:jndi-lookup id="dataSource2" jndi-name="${jndi.name}"/>
-
-       <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-              <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
-              <property name="url" value="${jdbc.url}"/>
-              <property name="username" value="${jdbc.user}"/>
-              <property name="password" value="${jdbc.password}"/>
-              <property name="initialSize" value="1"/>
-              <property name="poolPreparedStatements" value="true"/>
-              <property name="maxOpenPreparedStatements" value="10"/>
-       </bean>
+       <jee:jndi-lookup id="dataSource" jndi-name="${jndi.name}" expected-type="javax.sql.DataSource"/>
 
 </beans>

@@ -28,4 +28,6 @@ public interface AppointmentService {
     boolean cancelAppointment(Appointment appointment);
 
     List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate);
+
+    Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime);
 }

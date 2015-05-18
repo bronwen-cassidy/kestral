@@ -1,4 +1,4 @@
-package com.xioq.kestral;
+package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;

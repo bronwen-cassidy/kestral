@@ -3,6 +3,13 @@
     <companies id="-1" name="BF"/>
     <companies id="-2" name="Rockall"/>
 
+    <working_days id="-1" start_time="09:30" end_time="17:30" date="2015-05-04" company_id="-2"/>
+    <working_days id="-2" start_time="09:00" end_time="17:30" date="2015-05-07" company_id="-2"/>
+    <working_days id="-3" start_time="09:00" end_time="17:30" date="2015-05-08" company_id="-2"/>
+    <working_days id="-4" start_time="09:00" end_time="17:30" date="2015-05-09" company_id="-2"/>
+    <working_days id="-5" start_time="09:00" end_time="17:30" date="2015-05-11" company_id="-2"/>
+    <working_days id="-6" start_time="09:00" end_time="17:30" date="2015-06-04" company_id="-2"/>
+
     <providers id="-1" first_name="Mary" second_name="OBrian" company_id="-1"/>
     <providers id="-2" first_name="Peter" second_name="Tool" company_id="-2"/>
     <providers id="-3" first_name="Niall" second_name="Groark" company_id="-2"/>
@@ -19,4 +26,5 @@
     <appointments id="-9" company_id="-2" appointment_date="2015-05-11" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-2" label="bio testing 5" description="further specific info"/>
     <appointments id="-7" company_id="-1" appointment_date="2015-06-04" start_time="09:30" end_time="10:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
     <appointments id="-8" company_id="-1" appointment_date="2015-06-04" start_time="10:30" end_time="11:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
+
 </dataset>

@@ -20,7 +20,7 @@
     <appointments id="-2" company_id="-2" appointment_date="2015-05-04" start_time="10:30" end_time="11:30" client_id="-2" provider_id="-3" label="bio testing 1" description="further specific info"/>
     <appointments id="-4" company_id="-2" appointment_date="2015-05-04" start_time="13:30" end_time="14:30" client_id="-2" provider_id="-3" label="bio testing 3" description="further specific info"/>
     <appointments id="-5" company_id="-2" appointment_date="2015-05-04" start_time="14:30" end_time="15:30" client_id="-2" provider_id="-3" label="bio testing 4" description="further specific info"/>
-    <appointments id="-6" company_id="-2" appointment_date="2015-05-14" start_time="15:30" end_time="16:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
-    <appointments id="-9" company_id="-2" appointment_date="2015-05-14" start_time="16:30" end_time="17:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
+    <appointments id="-6" company_id="-2" appointment_date="2015-05-04" start_time="15:30" end_time="16:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
+    <appointments id="-9" company_id="-2" appointment_date="2015-05-04" start_time="16:30" end_time="17:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
 
 </dataset>
