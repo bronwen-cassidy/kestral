@@ -15,22 +15,26 @@ import java.util.Date;
 
 /**
  * Created by bronwen.cassidy on 18/05/2015.
+ *
  */
 @RestController
-@RequestMapping("/service/schedule/")
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     @Autowired
     private SchedulingService schedulingService;
 
-    @RequestMapping(value = "/provider/{provider_id}/start/{start_date}/end/{end_date}", method = RequestMethod.GET,headers="Accept=application/json")
-    public Schedule getSchedule(@PathVariable Long providerId, @PathVariable Date startDate, @PathVariable Date endDate) {
+    @RequestMapping(value = "/provider/{providerId}/start/{startDate}/end/{endDate}", method = RequestMethod.GET,headers="Accept=application/json")
+    public Schedule getSchedule(@PathVariable Long providerId, @PathVariable String startDate, @PathVariable String endDate) {
 
-        Schedule schedule = schedulingService.find(new Provider(providerId), startDate, endDate);
+        Date start = DateConstants.DATE_TIME_FORMATTER.parseDateTime(startDate).toDate();
+        Date end = DateConstants.DATE_TIME_FORMATTER.parseDateTime(endDate).toDate();
+
+        Schedule schedule = schedulingService.find(new Provider(providerId), start, end);
         return schedule;
     }
 
-    @RequestMapping(value = "/provider/{provider_id}", method = RequestMethod.GET,headers="Accept=application/json")
+    @RequestMapping(value = "/provider/{providerId}", method = RequestMethod.GET,headers="Accept=application/json")
     public Schedule getSchedule(@PathVariable Long providerId) {
 
         Schedule schedule = schedulingService.find(new Provider(providerId), DateTime.now().toDate(), DateTime.now().toDate());

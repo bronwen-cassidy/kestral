@@ -11,21 +11,53 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-       <context:component-scan base-package="com.xioq.kestral" />
+    <context:component-scan base-package="com.xioq.kestral"/>
 
-       <mvc:annotation-driven />
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
+          id="handlerMapping">
+        <property name="alwaysUseFullPath" value="true">
+        </property>
+    </bean>
 
-       <mvc:view-controller path="/index.html" />
-       <mvc:view-controller path="/login.html" />
-       <mvc:view-controller path="/logoutSuccess.html" />
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+                          p:autoDetectFields="true"
+                          p:autoDetectGettersSetters="true"
+                    />
+                </property>
+                <property name="supportedMediaTypes" value="application/json"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
-       <!-- Declare the Interceptor -->
-       <mvc:interceptors>
-              <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
-                    p:paramName="locale" />
-       </mvc:interceptors>
+    <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+        <property name="objectMapper">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" p:failOnEmptyBeans="false" p:indentOutput="true"/>
+        </property>
+    </bean>
 
-       <!-- Declare the Resolver -->
-       <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+    <mvc:view-controller path="/index.html"/>
+    <mvc:view-controller path="/login.html"/>
+    <mvc:view-controller path="/logoutSuccess.html"/>
+
+    <!-- Declare the Interceptor -->
+
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
+        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor" id="webContentInterceptor" p:alwaysUseFullPath="true" p:cacheSeconds="0">
+            <property name="cacheMappings">
+                <props>
+                    <prop key="/kestral/**">0</prop>
+                </props>
+            </property>
+        </bean>
+    </mvc:interceptors>
+
+    <!-- Declare the Resolver -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 
 </beans>

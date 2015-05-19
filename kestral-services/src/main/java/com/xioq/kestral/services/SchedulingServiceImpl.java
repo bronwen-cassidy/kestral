@@ -34,6 +34,7 @@ public class SchedulingServiceImpl implements SchedulingService {
         return schedule;
     }
 
+    @Transactional (readOnly = true)
     public Schedule find(Provider provider, Date start, Date end) {
         Schedule schedule = new Schedule(start.toString(), end.toString());
         List<Appointment> appointments = dataAccessor.find(provider, start, end);

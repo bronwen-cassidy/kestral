@@ -15,7 +15,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <execFinalName>kestral-${project.build.finalName}.jar</execFinalName>
+        <execFinalName>${project.build.finalName}.jar</execFinalName>
         <packageName>${project.artifactId}</packageName>
     </properties>
 
@@ -80,22 +80,11 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
-                <executions>
-                    <execution>
-                        <id>tomcat-run</id>
-                        <goals>
-                            <goal>exec-war-only</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <url>http://localhost:8080/manager/kestral</url>
-                            <serverXml>META-INF/server.xml</serverXml>
-                            <path>/${project.build.finalName}</path>
-                            <httpPort>8093</httpPort>
-                            <enableNaming>true</enableNaming>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <port>8093</port>
+                    <path>/kestral</path>
+                    <enableNaming>true</enableNaming>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.hsqldb</groupId>

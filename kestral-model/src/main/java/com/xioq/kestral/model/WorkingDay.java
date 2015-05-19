@@ -1,11 +1,7 @@
 package com.xioq.kestral.model;
 
-import com.sun.javafx.beans.IDProperty;
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 15/05/2015.

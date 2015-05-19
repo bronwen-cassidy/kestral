@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Context path="/kestral" docBase="kestral" reloadable="true">
+<Context path="/kestral" docBase="" reloadable="true">
     <!--<WatchedResource>WEB-INF/web.xml</WatchedResource>-->
     <ResourceLink name="jdbc/kestral"
               auth="Container"
