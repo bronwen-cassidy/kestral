@@ -11,4 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public interface ProviderService {
 
     Provider findById(Long id);
+
+    Provider create(Provider provider);
+
+    void update(Provider provider);
 }

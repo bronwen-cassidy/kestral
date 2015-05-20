@@ -1,6 +1,6 @@
 package com.xioq.kestral.services;
 
-import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.model.Company;
 import com.xioq.kestral.services.dao.DataAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,30 +10,30 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 
 /**
- * Created by bronwen.cassidy on 14/05/2015.
+ * Created by bronwen.cassidy on 20/05/2015.
  *
  */
 @Configuration
-@Service ("providerService")
+@Service("companyService")
 @Transactional
-public class ProviderServiceImpl implements ProviderService {
+public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private DataAccessor dataAccessor;
 
-    public Provider findById(Long id) {
-        return dataAccessor.findById(id, Provider.class);
+    public Company findById(Long id) {
+        return dataAccessor.findById(id, Company.class);
     }
 
     @Transactional(readOnly = false)
-    public Provider create(Provider provider) {
-        Serializable id = dataAccessor.save(provider);
-        provider.setId((Long)id);
-        return provider;
+    public Company create(Company company) {
+        Serializable id = dataAccessor.save(company);
+        company.setId((Long)id);
+        return company;
     }
 
     @Transactional(readOnly = false)
-    public void update(Provider provider) {
-        dataAccessor.saveOrUpdate(provider);
+    public void update(Company company) {
+        dataAccessor.saveOrUpdate(company);
     }
 }

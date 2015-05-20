@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 15/05/2015.
+ *
  */
 @Configuration
 @Service("workingDayService")

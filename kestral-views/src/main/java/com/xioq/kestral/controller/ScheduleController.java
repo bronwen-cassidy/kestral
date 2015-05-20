@@ -30,14 +30,12 @@ public class ScheduleController {
         Date start = DateConstants.DATE_TIME_FORMATTER.parseDateTime(startDate).toDate();
         Date end = DateConstants.DATE_TIME_FORMATTER.parseDateTime(endDate).toDate();
 
-        Schedule schedule = schedulingService.find(new Provider(providerId), start, end);
-        return schedule;
+        return schedulingService.find(new Provider(providerId), start, end);
     }
 
     @RequestMapping(value = "/provider/{providerId}", method = RequestMethod.GET,headers="Accept=application/json")
     public Schedule getSchedule(@PathVariable Long providerId) {
 
-        Schedule schedule = schedulingService.find(new Provider(providerId), DateTime.now().toDate(), DateTime.now().toDate());
-        return schedule;
+        return schedulingService.find(new Provider(providerId), DateTime.now().toDate(), DateTime.now().toDate());
     }
 }
