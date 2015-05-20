@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 08/05/2015.
+ *
  */
 @Entity
 @Table (name = "providers")
