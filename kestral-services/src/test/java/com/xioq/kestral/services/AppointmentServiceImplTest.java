@@ -6,11 +6,6 @@ import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.services.AppointmentService;
-import com.xioq.kestral.services.ClientService;
-import com.xioq.kestral.services.DateConstants;
-import com.xioq.kestral.services.ProviderService;
-import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,33 +79,33 @@ public class AppointmentServiceImplTest {
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
     public void testUpdateAppointmentNewProvider() throws Exception {
-        Appointment appointment = appointmentService.find(-8L);
+        Appointment appointment = appointmentService.findById(-8L);
         final Provider provider = new Provider(-6L);
         appointment.setProvider(provider);
         appointmentService.save(appointment);
         
-        Appointment updated = appointmentService.find(-8L);
+        Appointment updated = appointmentService.findById(-8L);
         assertEquals(new Long(-6), updated.getProvider().getId());
     }
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
     public void testUpdateAppointmentNewTime() throws Exception {
-        Appointment appointment = appointmentService.find(-8L);
+        Appointment appointment = appointmentService.findById(-8L);
         
         appointment.setStartTime("13:30");
         appointment.setEndTime("14:30");
         
         appointmentService.save(appointment);
 
-        Appointment updated = appointmentService.find(-8L);
+        Appointment updated = appointmentService.findById(-8L);
         assertEquals("13:30", updated.getStartTime());
     }
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
     public void testUpdateAppointmentNewDateTime() throws Exception {
-        Appointment appointment = appointmentService.find(-8L);
+        Appointment appointment = appointmentService.findById(-8L);
         appointment.setStartTime("14:30");
         appointment.setEndTime("15:30");
 
@@ -118,14 +113,14 @@ public class AppointmentServiceImplTest {
         appointment.setAppointmentDate(appointmentDate);
         appointmentService.save(appointment);
 
-        Appointment updated = appointmentService.find(-8L);
+        Appointment updated = appointmentService.findById(-8L);
         assertEquals(appointmentDate, updated.getAppointmentDate());
     }
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
     public void testCancelAppointment() throws Exception {
-        Appointment appointment = appointmentService.find(-8L);
+        Appointment appointment = appointmentService.findById(-8L);
         
         // cancel means throw it away? or archive it, for now throw it away
         boolean success = appointmentService.cancelAppointment(appointment);
@@ -136,7 +131,7 @@ public class AppointmentServiceImplTest {
     @DatabaseSetup("AppointmentServiceImplTest.testMakeAppointment.xml")
     public void testFindAvailableAppointments() throws Exception {
         
-        // step 1) find an available appointment slots for a given time period and company and provider
+        // step 1) findById an available appointment slots for a given time period and company and provider
         Company c = new Company(-2L);
         Provider p = new Provider(-3L);
         DateTime startPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
@@ -158,8 +153,8 @@ public class AppointmentServiceImplTest {
         String startTime = "11:30";
         Appointment expected = appointmentService.makeAppointment(c, p, client, startPeriod.toDate(), startTime);
 
-        // find the appointment
-        Appointment actual = appointmentService.find(expected.getId());
+        // findById the appointment
+        Appointment actual = appointmentService.findById(expected.getId());
         assertEquals(expected, actual);
 
     }

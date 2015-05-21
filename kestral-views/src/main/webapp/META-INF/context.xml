@@ -8,7 +8,7 @@
               username="kestral"
               password="kestral"
               driverClassName="org.hsqldb.jdbcDriver"
-              url="jdbc:hsqldb:mem:kestral;shutdown=true"
+              url="jdbc:hsqldb:file:kestral;shutdown=true"
               factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
               testOnBorrow="true"
               testOnReturn="true"

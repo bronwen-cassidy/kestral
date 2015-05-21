@@ -1,5 +1,6 @@
 package com.xioq.kestral.controller;
 
+import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class ProviderController {
 
     @RequestMapping(value="/provider/{id}", method = RequestMethod.GET,headers="Accept=application/json")
     public Provider getProvider(@PathVariable Long id) {
-        return providerService.findById(id);
+        Provider provider = providerService.findById(id);
+        return provider != null ? provider : new Provider();
     }
 
 }

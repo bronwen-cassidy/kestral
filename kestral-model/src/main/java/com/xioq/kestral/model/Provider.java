@@ -21,7 +21,7 @@ public class Provider {
     @Column (name = "second_name")
     private String secondName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "company_id")
     private Company company;
 

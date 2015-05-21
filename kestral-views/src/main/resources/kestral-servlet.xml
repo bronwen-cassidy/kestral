@@ -35,7 +35,13 @@
 
     <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
         <property name="objectMapper">
-            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" p:failOnEmptyBeans="false" p:indentOutput="true"/>
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" p:failOnEmptyBeans="false" p:indentOutput="true">
+                <property name="modules">
+                    <list>
+                        <bean class="com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module"/>
+                    </list>
+                </property>
+            </bean>
         </property>
     </bean>
 

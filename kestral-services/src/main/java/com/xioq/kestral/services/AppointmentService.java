@@ -23,11 +23,13 @@ public interface AppointmentService {
 
     List<Appointment> findAll(Client client);
 
-    Appointment find(Long id);
+    Appointment findById(Long id);
 
     boolean cancelAppointment(Appointment appointment);
 
     List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate);
 
     Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime);
+
+    Appointment makeAppointment(Appointment appointment);
 }

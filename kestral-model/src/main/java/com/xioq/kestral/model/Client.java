@@ -17,7 +17,7 @@ public class Client {
     @Column(name = "second_name")
     private String secondName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

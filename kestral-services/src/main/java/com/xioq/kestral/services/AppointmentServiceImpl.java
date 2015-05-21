@@ -51,7 +51,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return dataAccessor.findAll(client);
     }
 
-    public Appointment find(Long id) {
+    public Appointment findById(Long id) {
         return dataAccessor.findById(id, Appointment.class);
     }
 
@@ -74,6 +74,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return null;
     }
 
+    public Appointment makeAppointment(Appointment appointment) {
+        return save(appointment);
+    }
+
     public List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate) {
         // get the list of all possible time periods (30 mins for now) per day for each day in the interim period
         List<Appointment> occupiedAppointments = new ArrayList<Appointment>(dataAccessor.find(provider, startDate, endDate));
@@ -81,14 +85,14 @@ public class AppointmentServiceImpl implements AppointmentService {
         List<WorkingDay> workingDays = workingDayService.find(company, startDate, endDate);
         List<Appointment> availableAppointments = new ArrayList<Appointment>();
         for (WorkingDay workingDay : workingDays) {
-            // for each day and each time slot find a corresponding appointment time of make a new one
+            // for each day and each time slot findById a corresponding appointment time of make a new one
 
             // todo remove breaks periods?? put into configuration
             LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getStartTime());
             LocalTime endOfTheDay = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getEndTime());
             LocalTime nextTime = tme;
             while (nextTime.isBefore(endOfTheDay)) {
-                // FIND AN APPOINTMENT starting at this time remove as you find
+                // FIND AN APPOINTMENT starting at this time remove as you findById
                 String startTime = DateConstants.TIME_FORMATTER.print(nextTime);
                 boolean found = filterAppointments(occupiedAppointments, workingDay.getDaysDate(), startTime);
                 if(!found) {
