@@ -1,6 +1,5 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;

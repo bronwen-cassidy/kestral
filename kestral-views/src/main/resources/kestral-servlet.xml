@@ -25,8 +25,13 @@
                 <property name="objectMapper">
                     <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
                           p:autoDetectFields="true"
-                          p:autoDetectGettersSetters="true"
-                    />
+                          p:autoDetectGettersSetters="true">
+                        <property name="modules">
+                            <list>
+                                <bean class="com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module"/>
+                            </list>
+                        </property>
+                    </bean>
                 </property>
                 <property name="supportedMediaTypes" value="application/json"/>
             </bean>
@@ -35,7 +40,8 @@
 
     <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
         <property name="objectMapper">
-            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean" p:failOnEmptyBeans="false" p:indentOutput="true">
+            <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+                  p:failOnEmptyBeans="false" p:indentOutput="true">
                 <property name="modules">
                     <list>
                         <bean class="com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module"/>
@@ -54,7 +60,8 @@
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
-        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor" id="webContentInterceptor" p:alwaysUseFullPath="true" p:cacheSeconds="0">
+        <bean class="org.springframework.web.servlet.mvc.WebContentInterceptor" id="webContentInterceptor"
+              p:alwaysUseFullPath="true" p:cacheSeconds="0">
             <property name="cacheMappings">
                 <props>
                     <prop key="/kestral/**">0</prop>
