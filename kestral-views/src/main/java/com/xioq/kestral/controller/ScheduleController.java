@@ -34,7 +34,7 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/provider/{providerId}", method = RequestMethod.GET,headers="Accept=application/json")
-    public Schedule getSchedule(@PathVariable Long providerId) {
+    public Schedule getTodaysSchedule(@PathVariable Long providerId) {
 
         return schedulingService.find(new Provider(providerId), DateTime.now().toDate(), DateTime.now().toDate());
     }

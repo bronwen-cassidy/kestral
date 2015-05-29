@@ -5,10 +5,7 @@ import com.xioq.kestral.model.Client;
 import com.xioq.kestral.services.AppointmentService;
 import com.xioq.kestral.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * handle appointments
@@ -26,7 +23,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client/add", method = RequestMethod.POST,headers = "Accept=application/json")
-    public Client addClient(Client client) {
+    public Client addClient(@RequestBody Client client) {
         return clientService.save(client);
     }
 
