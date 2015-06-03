@@ -4,6 +4,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.xioq.kestral.model.Address;
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Company;
+import com.xioq.kestral.model.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,15 +24,16 @@ public class ClientServiceImplTest extends DefaultServiceTest {
     public void testCreateClient() throws Exception {
 
         Client c = new Client();
-        c.setCompany(new Company(-1L));
-        c.setFirstName("Bronwen");
-        c.setSecondName("Cassidy");
+        User u = new User();
+        u.setCompany(new Company(-1L));
+        u.setFirstName("Bronwen");
+        u.setSecondName("Cassidy");
         Address address = new Address();
         address.setPostCode("EN5 4LR");
-        c.setAddress(address);
-        c.setContactTelephone("+353877297152");
-        c.setContactEmail("bronwen_cassidy@yahoo.co.uk");
-
+        u.setAddress(address);
+        u.setContactTelephone("+353877297152");
+        u.setContactEmail("bronwen_cassidy@yahoo.co.uk");
+        c.setUser(u);
         Client expected = clientService.save(c);
         Client actual = clientService.findById(expected.getId());
 
@@ -44,12 +46,14 @@ public class ClientServiceImplTest extends DefaultServiceTest {
     public void testUpdateClient() throws Exception {
 
         Client expected = clientService.findById(-2L);
-        expected.setSecondName("Cassidy");
+        User u = expected.getUser();
+        u.setSecondName("Cassidy");
         clientService.update(expected);
 
         Client actual = clientService.findById(expected.getId());
 
         assertEquals(expected, actual);
+        assertEquals(expected.getUser(), actual.getUser());
 
     }
 }

@@ -1,10 +1,9 @@
 package com.xioq.kestral.services;
 
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.Company;
+import com.xioq.kestral.model.*;
 import org.springframework.context.annotation.Configuration;
 
+import javax.security.auth.login.FailedLoginException;
 import java.util.List;
 
 /**

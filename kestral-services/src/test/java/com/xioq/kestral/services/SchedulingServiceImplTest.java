@@ -77,7 +77,7 @@ public class SchedulingServiceImplTest {
             // client attends an appointment with
             Provider provider = appointment.getProvider();
             assertNotNull(provider);
-            assertEquals("Mary", provider.getFirstName());
+            assertEquals("Mary", provider.getUser().getFirstName());
         }
     }
 

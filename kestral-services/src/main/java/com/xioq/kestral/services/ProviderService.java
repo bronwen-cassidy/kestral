@@ -4,6 +4,8 @@ import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Provider;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
  * Created by bronwen.cassidy on 14/05/2015.
  */
@@ -15,4 +17,6 @@ public interface ProviderService {
     Provider create(Provider provider);
 
     void update(Provider provider);
+
+    List<Provider> findAll(Long companyId);
 }

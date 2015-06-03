@@ -5,6 +5,8 @@ import com.xioq.kestral.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * handle appointments
  */
@@ -26,4 +28,9 @@ public class ProviderController {
         return provider != null ? provider : new Provider();
     }
 
+    @RequestMapping(value="/all/{companyId}", method = RequestMethod.GET,headers="Accept=application/json")
+    public List<Provider> getAllProviders(@PathVariable Long companyId) {
+        List<Provider> providers = providerService.findAll(companyId);
+        return providers;
+    }
 }

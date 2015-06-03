@@ -1,5 +1,6 @@
 package com.xioq.kestral.services;
 
+import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.services.dao.DataAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 14/05/2015.
@@ -35,5 +37,9 @@ public class ProviderServiceImpl implements ProviderService {
     @Transactional(readOnly = false)
     public void update(Provider provider) {
         dataAccessor.saveOrUpdate(provider);
+    }
+
+    public List<Provider> findAll(Long companyId) {
+        return dataAccessor.findAll(Provider.class, new Company(companyId));
     }
 }

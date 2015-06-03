@@ -16,18 +16,14 @@ public class Provider {
     @GeneratedValue
     @Column (name="id")
     private Long id;
-    @Column (name = "first_name")
-    private String firstName;
-    @Column (name = "second_name")
-    private String secondName;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "company_id")
-    private Company company;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn (name = "provider_id")
     private List<Appointment> appointments;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Provider() {
     }
@@ -36,9 +32,6 @@ public class Provider {
         this.id = id;
     }
 
-    // todo address
-    // todo qualifications
-    // todo rates, hourly or salaried should be in a strategy
 
     public Long getId() {
         return id;
@@ -48,36 +41,20 @@ public class Provider {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
