@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bronwen.cassidy on 15/04/2015.
@@ -20,6 +21,7 @@ public interface DataAccessor {
     void delete(final Object object);
     <T> T merge(final T item);
     <T> void saveOrUpdate(final T item);
+    <T>List<T> find(Class<T> clazz, Map<String, Object> equalFilters);
 
     // todo a generic search method??
 }
