@@ -2,6 +2,7 @@ package com.xioq.kestral.services.dao;
 
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.model.User;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -18,5 +19,11 @@ public class ClientDaoImpl extends DataAccessorImpl implements ClientDao {
         Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Client.class)
                 .add(Restrictions.eq("provider", provider)).list();
+    }
+
+    public Client find(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Client) session.createCriteria(Client.class)
+                .add(Restrictions.eq("user", user)).uniqueResult();
     }
 }

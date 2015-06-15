@@ -3,7 +3,9 @@ package com.xioq.kestral.controller;
 import com.xioq.kestral.model.InvalidLoginCredentialsException;
 import com.xioq.kestral.model.LoginInfo;
 import com.xioq.kestral.model.User;
+import com.xioq.kestral.services.ClientService;
 import com.xioq.kestral.services.LoginService;
+import com.xioq.kestral.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,11 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private ProviderService providerService;
+    @Autowired
+    private ClientService clientService;
+
 
     @RequestMapping(value = "/login", method = RequestMethod.POST,headers = "Accept=application/json")
     public ResponseEntity<Map> clientLogin(@RequestBody LoginInfo loginInfo) {
@@ -32,6 +39,11 @@ public class LoginController {
         try {
             // todo need to return a client and/ or an error
             User user = loginService.loginUser(loginInfo);
+            if(user.isProvider()) {
+                resultMapping.put("provider", providerService.find(new User(user.getId())));
+            } else {
+                resultMapping.put("client", clientService.find(new User(user.getId())));
+            }
             resultMapping.put("user", user);
             resultMapping.put("successMsg", "Login Successful");
             return new ResponseEntity<Map>(resultMapping, HttpStatus.OK);

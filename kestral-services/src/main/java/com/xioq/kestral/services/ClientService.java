@@ -19,4 +19,6 @@ public interface ClientService {
     void update(Client expected);
 
     List<Client> findAllForProvider(Long providerId);
+
+    Client find(User user);
 }

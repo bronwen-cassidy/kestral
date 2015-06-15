@@ -2,7 +2,8 @@ package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.services.dao.DataAccessor;
+import com.xioq.kestral.model.User;
+import com.xioq.kestral.services.dao.ProviderDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
@@ -21,25 +22,29 @@ import java.util.List;
 public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
-    private DataAccessor dataAccessor;
+    private ProviderDao providerDao;
 
     public Provider findById(Long id) {
-        return dataAccessor.findById(id, Provider.class);
+        return providerDao.findById(id, Provider.class);
     }
 
     @Transactional(readOnly = false)
     public Provider create(Provider provider) {
-        Serializable id = dataAccessor.save(provider);
+        Serializable id = providerDao.save(provider);
         provider.setId((Long)id);
         return provider;
     }
 
     @Transactional(readOnly = false)
     public void update(Provider provider) {
-        dataAccessor.saveOrUpdate(provider);
+        providerDao.saveOrUpdate(provider);
     }
 
     public List<Provider> findAll(Long companyId) {
-        return dataAccessor.findAll(Provider.class, new Company(companyId));
+        return providerDao.findAll(Provider.class, new Company(companyId));
+    }
+
+    public Provider find(User user) {
+        return providerDao.find(user);
     }
 }

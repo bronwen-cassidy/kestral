@@ -2,6 +2,7 @@ package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.dao.ClientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +34,10 @@ public class ClientServiceImpl implements ClientService {
 
     public List<Client> findAllForProvider(Long providerId) {
         return clientDao.findForProvider(new Provider(providerId));
+    }
+
+    public Client find(User user) {
+        return clientDao.find(user);
     }
 
     public void update(Client expected) {

@@ -2,6 +2,7 @@ package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Client;
 import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.model.User;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface ProviderService {
     void update(Provider provider);
 
     List<Provider> findAll(Long companyId);
+
+    Provider find(User user);
 }

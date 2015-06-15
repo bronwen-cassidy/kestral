@@ -1,7 +1,7 @@
 var kestralControllers = angular.module('kestralControllers', []);
 
 // todo this will provide the company id, user id, may be a client or a provider we will type it etc
-kestralControllers.controller('loginClientController', function ($scope, $http) {
+kestralControllers.controller('loginProviderController', function ($scope, $http) {
 
     $scope.onLogin = function () {
         console.log('Attempting login with username ' + $scope.vm.username + ' and password ' + $scope.vm.password);
@@ -22,8 +22,7 @@ kestralControllers.controller('loginClientController', function ($scope, $http) 
 });
 
 kestralControllers.controller('clientsController', ['$scope', '$http', function ($scope, $http, $routeParams) {
-    $scope.providerId = $routeParams.providerId;
-    $http.get('clients/{{$scope.providerId}}/').success(function(data) {
+    $http.get('clients/' + $routeParams.provider.id + '/').success(function(data) {
         $scope.clients = data;
     });
 }]);

@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
+    public static final String PROVIDER_TYPE = "P";
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -39,6 +40,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn (name = "provider_id")
     private List<Appointment> appointments;
+
+    public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -144,5 +152,9 @@ public class User {
                 .append("company", company)
                 .append("contactTelephone", contactTelephone)
                 .toString();
+    }
+
+    public boolean isProvider() {
+        return PROVIDER_TYPE.equals(getUserType());
     }
 }

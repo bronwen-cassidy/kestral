@@ -1,12 +1,10 @@
 package com.xioq.kestral.services.dao;
 
 import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,9 +13,7 @@ import java.util.List;
  * db methods
  */
 @Repository
-public interface ClientDao extends DataAccessor {
-    List<Client> findForProvider(Provider provider);
-
-    Client find(User user);
+public interface ProviderDao extends DataAccessor {
+    Provider find(User user);
     // todo a generic search method??
 }
