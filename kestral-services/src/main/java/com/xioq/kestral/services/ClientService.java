@@ -17,4 +17,6 @@ public interface ClientService {
     Client save(Client client);
 
     void update(Client expected);
+
+    List<Client> findAllForProvider(Long providerId);
 }
