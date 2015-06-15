@@ -1,6 +1,7 @@
 var kestralApp = angular.module('kestralApp', [
     'ngRoute',
-    'kestralControllers'
+    'kestralControllers',
+    'kestralServices'
 ]);
 
 kestralApp.config(['$routeProvider', function ($routeProvider) {
@@ -14,6 +15,6 @@ kestralApp.config(['$routeProvider', function ($routeProvider) {
             controller: 'clientController'
         }).
         otherwise({
-            redirectTo: '/clients'
+            redirectTo: '/pages/login.html'
         });
 }]);

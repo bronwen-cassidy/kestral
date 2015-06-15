@@ -21,17 +21,22 @@ kestralControllers.controller('loginProviderController', function ($scope, $http
     };
 });
 
-kestralControllers.controller('clientsController', ['$scope', '$http', function ($scope, $http, $routeParams) {
-    $http.get('clients/' + $routeParams.provider.id + '/').success(function(data) {
-        $scope.clients = data;
-    });
+kestralControllers.controller('clientsController', ['$scope', '$routeParams', 'Clients', function ($scope, $routeParams, Clients) {
+    $scope.clients = Clients.get({providerId: $routeParams.providerId});
+    $scope.orderProp = 'name';
 }]);
 
 // todo figure out how to obtain the id, companyId will come from a login but where would it go
-kestralControllers.controller('clientController', ['$scope', '$http', function ($scope, $http) {
-    $http.get('clients/client/?/').success(function(data) {
-        $scope.client = data;
+kestralControllers.controller('clientController', ['$scope', '$routeParams', 'Client', function ($scope, $routeParams, Client) {
+    $scope.client = Client.get({clientId: $routeParams.clientId}, function(client) {
+        // make sure we have the companyId
+        $scope.companyId = client.company.id;
     });
+
+    // note functions relating to the client go here
+    $scope.setName = function(name) {
+        $scope.client.name = name;
+    };
 }]);
 
 // todo figure out how to obtain the id, companyId will come from a login but where would it go
@@ -47,3 +52,7 @@ kestralControllers.controller('providers', ['$scope', '$http', function ($scope,
         $scope.providers = data;
     });
 }]);
+
+// todo appointment controller will be huge with many functions relating directly to appointments
+// todo 2 flows to map a provider marking unavailable days (holiday etc)
+// todo client flow to book an appointment
