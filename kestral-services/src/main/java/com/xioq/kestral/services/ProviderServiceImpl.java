@@ -24,7 +24,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Autowired
     private ProviderDao providerDao;
 
-    public Provider findById(Long id) {
+    public Provider findById(Long id) throws EntityNotFoundException {
         return providerDao.findById(id, Provider.class);
     }
 
@@ -46,5 +46,10 @@ public class ProviderServiceImpl implements ProviderService {
 
     public Provider find(User user) {
         return providerDao.find(user);
+    }
+
+    public void delete(Long id) {
+        Provider provider = findById(id);
+        providerDao.delete(provider);
     }
 }

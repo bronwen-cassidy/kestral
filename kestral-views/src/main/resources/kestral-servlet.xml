@@ -13,8 +13,7 @@
 
     <context:component-scan base-package="com.xioq.kestral"/>
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
-          id="handlerMapping">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" id="handlerMapping">
         <property name="alwaysUseFullPath" value="true">
         </property>
     </bean>

@@ -6,6 +6,7 @@ import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.services.AppointmentService;
 import com.xioq.kestral.services.DateConstants;
+import com.xioq.kestral.services.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,17 @@ public class AppointmentController {
     @RequestMapping(value="/appointment/{id}",method = RequestMethod.GET,headers="Accept=application/json")
     public Appointment getAppointment(@PathVariable Long id) {
         return appointmentService.findById(id);
+    }
+
+    @RequestMapping(value="/appointment/delete/{id}",method = RequestMethod.GET,headers="Accept=application/json")
+    public String deleteAppointment(@PathVariable Long id) {
+
+        try {
+            appointmentService.delete(id);
+        } catch (EntityNotFoundException e) {
+            return Constants.ERROR;
+        }
+        return Constants.SUCCESS;
     }
 
     @RequestMapping(value="/appointment/c/{id}",method = RequestMethod.GET,headers="Accept=application/json")

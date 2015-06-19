@@ -23,7 +23,7 @@ public interface AppointmentService {
 
     List<Appointment> findAll(Client client);
 
-    Appointment findById(Long id);
+    Appointment findById(Long id) throws EntityNotFoundException;
 
     boolean cancelAppointment(Appointment appointment);
 
@@ -32,4 +32,6 @@ public interface AppointmentService {
     Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime);
 
     Appointment makeAppointment(Appointment appointment);
+
+    void delete(Long id);
 }

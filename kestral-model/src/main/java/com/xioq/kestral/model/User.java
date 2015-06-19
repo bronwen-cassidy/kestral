@@ -4,7 +4,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by bronwen.cassidy on 03/06/2015. User is the genereric person who can login,
@@ -37,9 +36,6 @@ public class User {
     private Address address;
     @Column(name = "contact_telephone")
     private String contactTelephone;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinColumn (name = "provider_id")
-    private List<Appointment> appointments;
 
     public User() {
     }
@@ -102,14 +98,6 @@ public class User {
 
     public String getContactEmail() {
         return contactEmail;
-    }
-
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
     }
 
     public String getUserType() {

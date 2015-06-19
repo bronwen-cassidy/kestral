@@ -25,34 +25,34 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public static final int COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION = 60;
     @Autowired
-    private AppointmentDao dataAccessor;
+    private AppointmentDao appointmentDao;
     @Autowired
     private WorkingDayService workingDayService;
 
     public List<Appointment> findAll(Company company) {
-        return dataAccessor.findAll(Appointment.class, company);
+        return appointmentDao.findAll(Appointment.class, company);
     }
 
     public Appointment save(Appointment appointment) {
         if (appointment.getId() == null) {
-            Serializable id = dataAccessor.save(appointment);
+            Serializable id = appointmentDao.save(appointment);
             appointment.setId((Long) id);
         } else {
-            dataAccessor.saveOrUpdate(appointment);
+            appointmentDao.saveOrUpdate(appointment);
         }
         return appointment;
     }
 
     public List<Appointment> findAll(Provider provider) {
-        return dataAccessor.findAll(provider);
+        return appointmentDao.findAll(provider);
     }
 
     public List<Appointment> findAll(Client client) {
-        return dataAccessor.findAll(client);
+        return appointmentDao.findAll(client);
     }
 
-    public Appointment findById(Long id) {
-        return dataAccessor.findById(id, Appointment.class);
+    public Appointment findById(Long id) throws EntityNotFoundException {
+        return appointmentDao.findById(id, Appointment.class);
     }
 
     public Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime) {
@@ -74,13 +74,18 @@ public class AppointmentServiceImpl implements AppointmentService {
         return null;
     }
 
+    public void delete(Long id) {
+        Appointment appointment = findById(id);
+        appointmentDao.delete(appointment);
+    }
+
     public Appointment makeAppointment(Appointment appointment) {
         return save(appointment);
     }
 
     public List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate) {
         // get the list of all possible time periods (30 mins for now) per day for each day in the interim period
-        List<Appointment> occupiedAppointments = new ArrayList<Appointment>(dataAccessor.find(provider, startDate, endDate));
+        List<Appointment> occupiedAppointments = new ArrayList<Appointment>(appointmentDao.find(provider, startDate, endDate));
 
         List<WorkingDay> workingDays = workingDayService.find(company, startDate, endDate);
         List<Appointment> availableAppointments = new ArrayList<Appointment>();
@@ -126,7 +131,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public boolean cancelAppointment(Appointment appointment) {
         try {
             // can apply a lot of logic here, conditions, fees etc
-            dataAccessor.delete(appointment);
+            appointmentDao.delete(appointment);
         } catch (Exception e) {
             return false;
         }

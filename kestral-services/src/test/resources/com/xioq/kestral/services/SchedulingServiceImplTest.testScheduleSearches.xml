@@ -17,12 +17,21 @@
     <working_days id="-11" start_time="09:00" end_time="17:30" date="2015-05-11" company_id="-1"/>
     <working_days id="-12" start_time="09:00" end_time="17:30" date="2015-06-04" company_id="-1"/>
 
-    <providers id="-1" first_name="Mary" second_name="OBrian" company_id="-1"/>
-    <providers id="-2" first_name="Peter" second_name="Tool" company_id="-2"/>
-    <providers id="-3" first_name="Niall" second_name="Groark" company_id="-2"/>
+    <user first_name="Mary" second_name="Mark" id="-1" company_id="-1" user_type="C"/>
+    <user first_name="Ben" second_name="Marston" id="-2" company_id="-2" user_type="C"/>
 
-    <clients first_name="Mary" second_name="Mark" id="-1" company_id="-1"/>
-    <clients first_name="Ben" second_name="Marston" id="-2" company_id="-2"/>
+    <user id="-3" first_name="Mary" second_name="OBrian" company_id="-1" user_type="P"/>
+    <user id="-4" first_name="Peter" second_name="Tool" company_id="-2" user_type="P"/>
+    <user id="-5" first_name="Niall" second_name="Groark" company_id="-2" user_type="P"/>
+    <user id="-6" first_name="Morgan" second_name="Mitchel" company_id="-2" user_type="P"/>
+
+    <providers id="-1" user_id="-3"/>
+    <providers id="-2" user_id="-4"/>
+    <providers id="-3" user_id="-5"/>
+    <providers id="-6" user_id="-6"/>
+
+    <clients id="-1" user_id="-1"/>
+    <clients id="-2" user_id="-2"/>
 
     <appointments id="-1" company_id="-2" appointment_date="2015-05-04" start_time="9:30" end_time="10:30" client_id="-2" provider_id="-3" label="x" description="further specific info 2"/>
     <appointments id="-2" company_id="-2" appointment_date="2015-05-04" start_time="10:30" end_time="11:30" client_id="-2" provider_id="-3" label="bio testing 1" description="further specific info"/>

@@ -7,12 +7,12 @@ import javax.security.auth.login.FailedLoginException;
 import java.util.List;
 
 /**
- * Created by bronwen.cassidy on 14/05/2015.
+ * Created by bronwen.cassidy on 14/05/2015
  */
 @Configuration
 public interface ClientService {
 
-    Client findById(Long id);
+    Client findById(Long id) throws EntityNotFoundException;
 
     Client save(Client client);
 
@@ -21,4 +21,6 @@ public interface ClientService {
     List<Client> findAllForProvider(Long providerId);
 
     Client find(User user);
+
+    void delete(Long id);
 }

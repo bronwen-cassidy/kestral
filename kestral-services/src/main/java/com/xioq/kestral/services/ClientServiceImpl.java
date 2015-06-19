@@ -22,7 +22,7 @@ public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientDao clientDao;
 
-    public Client findById(Long id) {
+    public Client findById(Long id) throws EntityNotFoundException {
         return clientDao.findById(id, Client.class);
     }
 
@@ -38,6 +38,11 @@ public class ClientServiceImpl implements ClientService {
 
     public Client find(User user) {
         return clientDao.find(user);
+    }
+
+    public void delete(Long id) {
+        Client client = findById(id);
+        clientDao.delete(client);
     }
 
     public void update(Client expected) {

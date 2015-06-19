@@ -1,11 +1,5 @@
 /* this will manage all our restful responses we will remove these from the controllers now*/
-var kestralServices = angular.module('kestralServices', ['ngResource']);
-
-kestralServices.factory('Provider', ['$resource', function ($resource) {
-    return $resource('providers/provider/:providerId', {}, {
-        query: {method: 'GET', params: {providerId: 'providerId'}, isArray: true}
-    });
-}]);
+var kestralServices = angular.module('kestralServices', ['ngResource', 'ngCookies']);
 
 kestralServices.factory('Client', ['$resource', function ($resource) {
     return $resource('clients/client/:clientId', {}, {
@@ -13,8 +7,37 @@ kestralServices.factory('Client', ['$resource', function ($resource) {
     });
 }]);
 
-kestralServices.factory('Clients', ['$resource', function ($resource) {
-    return $resource('clients/:providerId', {}, {
-        query: {method: 'GET', params: {providerId: 'providerId'}, isArray: true}
-    });
-}]);
+//kestralServices.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
+//    function ($http, $cookieStore, $rootScope) {
+//        var service = {};
+//
+//        service.login = function (username, password, callback) {
+//
+//            $http.post("/login", {username: username, password: password}, {headers: {'Content-Type': 'application/json'}})
+//                .success(function (response) {
+//                    callback(response);
+//                });
+//
+//        };
+//
+//        service.SetCredentials = function (username, id, companyId) {
+//
+//            $rootScope.globals = {
+//                currentUser: {
+//                    username: username,
+//                    id: id,
+//                    companyId: companyId
+//                }
+//            };
+//
+//            $cookieStore.put('globals', $rootScope.globals);
+//        };
+//
+//        service.ClearCredentials = function () {
+//            $rootScope.globals = {};
+//            $cookieStore.remove('globals');
+//            $http.defaults.headers.common.Authorization = 'Basic ';
+//        };
+//
+//        return service;
+//    }]);

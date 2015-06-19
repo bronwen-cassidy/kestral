@@ -1,20 +1,16 @@
 var kestralApp = angular.module('kestralApp', [
     'ngRoute',
+    'ngCookies',
+    'ngResource',
     'kestralControllers',
     'kestralServices'
 ]);
 
 kestralApp.config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.
-        when('/clients', {
-            templateUrl: 'clients/client-list.html',
-            controller: 'clientsController'
-        }).
-        when('/client/:clientId', {
-            templateUrl: 'clients/client-detail.html',
-            controller: 'clientController'
-        }).
-        otherwise({
-            redirectTo: '/pages/login.html'
-        });
-}]);
+        $routeProvider
+            .when('/clients/client/:clientId', {
+                templateUrl: 'pages/clients/client-detail.html',
+                controller: 'clientController'
+            })
+            .otherwise({redirectTo: '/'});
+    }]);

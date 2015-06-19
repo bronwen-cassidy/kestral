@@ -22,6 +22,16 @@ public class ClientController {
         return clientService.findById(id);
     }
 
+    @RequestMapping(value = "/client/delete/{id}", method = RequestMethod.GET,headers = "Accept=application/json")
+    public String deleteClient(@PathVariable Long id) {
+        try {
+            clientService.delete(id);
+        } catch (Exception e) {
+            return Constants.ERROR;
+        }
+        return Constants.SUCCESS;
+    }
+
     @RequestMapping(value = "/{providerId}", method = RequestMethod.GET,headers = "Accept=application/json")
     public List<Client> getClients(@PathVariable Long providerId) {
         return clientService.findAllForProvider(providerId);
@@ -31,5 +41,6 @@ public class ClientController {
     public Client addClient(@RequestBody Client client) {
         return clientService.save(client);
     }
+
 
 }
