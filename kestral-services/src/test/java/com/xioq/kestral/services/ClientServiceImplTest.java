@@ -1,10 +1,7 @@
 package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.Address;
-import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.Company;
-import com.xioq.kestral.model.User;
+import com.xioq.kestral.model.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,6 +25,7 @@ public class ClientServiceImplTest extends DefaultServiceTest {
         u.setCompany(new Company(-1L));
         u.setFirstName("Bronwen");
         u.setSecondName("Cassidy");
+        u.setUserType(UserType.CLIENT.toString());
         Address address = new Address();
         address.setPostCode("EN5 4LR");
         u.setAddress(address);

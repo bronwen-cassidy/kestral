@@ -9,10 +9,9 @@
     <working_days id="-5" start_time="09:00" end_time="17:30" date="2015-05-11" company_id="-1"/>
     <working_days id="-6" start_time="09:00" end_time="17:30" date="2015-06-04" company_id="-1"/>
 
-    <user first_name="Mary" second_name="Mark" id="-1" company_id="-1" user_type="C"/>
-    <user first_name="Ben" second_name="Marston" id="-2" company_id="-2" user_type="C"/>
-
-    <user id="-4" first_name="Peter" second_name="Tool" company_id="-2" user_type="P"/>
+    <users id="-1" first_name="Mary" second_name="Mark" company_id="-1" user_type="C"/>
+    <users id="-2" first_name="Ben" second_name="Marston" company_id="-1" user_type="C"/>
+    <users id="-4" first_name="Peter" second_name="Tool" company_id="-1" user_type="P"/>
 
     <providers id="-2" user_id="-4"/>
 
