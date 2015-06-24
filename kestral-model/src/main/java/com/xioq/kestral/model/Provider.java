@@ -20,7 +20,7 @@ public class Provider {
     @JoinColumn (name = "provider_id")
     private List<Appointment> appointments;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

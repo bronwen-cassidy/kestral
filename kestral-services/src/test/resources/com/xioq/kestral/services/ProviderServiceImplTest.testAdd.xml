@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <companies id="-1" name="BF"/>
+    <companies id="-2" name="Rockall"/>
+
+    <working_days id="-1" start_time="09:30" end_time="17:30" date="2015-05-04" company_id="-2"/>
+    <working_days id="-2" start_time="09:00" end_time="17:30" date="2015-05-07" company_id="-2"/>
+    <working_days id="-3" start_time="09:00" end_time="17:30" date="2015-05-08" company_id="-2"/>
+    <working_days id="-4" start_time="09:00" end_time="17:30" date="2015-05-09" company_id="-2"/>
+    <working_days id="-5" start_time="09:00" end_time="17:30" date="2015-05-11" company_id="-2"/>
+    <working_days id="-6" start_time="09:00" end_time="17:30" date="2015-06-04" company_id="-2"/>
+
+</dataset>

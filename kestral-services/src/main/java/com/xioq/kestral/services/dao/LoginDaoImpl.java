@@ -6,7 +6,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by bronwen.cassidy on 03/06/2015.
+ * Created by bronwen.cassidy on 03/06/2015
  */
 @Repository("loginDao")
 public class LoginDaoImpl extends DataAccessorImpl implements LoginDao {

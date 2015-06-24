@@ -19,5 +19,7 @@ public interface ClientDao extends DataAccessor {
     List<Client> findForProvider(Provider provider);
 
     Client find(User user);
+
+    List<Client> findAll(Company company);
     // todo a generic search method??
 }

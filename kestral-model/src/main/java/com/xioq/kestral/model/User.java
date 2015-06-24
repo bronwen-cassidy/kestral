@@ -2,6 +2,7 @@ package com.xioq.kestral.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Check;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -18,12 +19,16 @@ public class User {
     @GeneratedValue
     @Column(name = "id")
     protected Long id;
+
     @Column(name = "contact_email")
     protected String contactEmail;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "second_name")
     private String secondName;
+
     @Column(name = "user_type", nullable = false)
     @Check(constraints = "user_type IN ('P','C')")
     private String userType;
@@ -31,9 +36,11 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = true)
     private Address address;
+
     @Column(name = "contact_telephone")
     private String contactTelephone;
 

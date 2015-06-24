@@ -23,4 +23,6 @@ public interface ClientService {
     Client find(User user);
 
     void delete(Long id);
+
+    List<Client> findAll(Long companyId);
 }

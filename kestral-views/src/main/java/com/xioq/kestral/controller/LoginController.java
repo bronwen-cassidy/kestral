@@ -22,7 +22,7 @@ import java.util.Map;
  * handle appointments
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/app")
 public class LoginController {
 
     @Autowired

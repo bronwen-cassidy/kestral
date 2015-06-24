@@ -1,6 +1,7 @@
 package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Client;
+import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.dao.ClientDao;
@@ -49,4 +50,7 @@ public class ClientServiceImpl implements ClientService {
         clientDao.saveOrUpdate(expected);
     }
 
+    public List<Client> findAll(Long companyId) {
+        return clientDao.findAll(new Company(companyId));
+    }
 }

@@ -1,6 +1,7 @@
 package com.xioq.kestral.services.dao;
 
 import com.xioq.kestral.model.Client;
+import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.User;
 import org.hibernate.Session;
@@ -25,5 +26,11 @@ public class ClientDaoImpl extends DataAccessorImpl implements ClientDao {
         Session session = sessionFactory.getCurrentSession();
         return (Client) session.createCriteria(Client.class)
                 .add(Restrictions.eq("user", user)).uniqueResult();
+    }
+
+    public List<Client> findAll(Company company) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createCriteria(Client.class)
+                .createCriteria("user").add(Restrictions.eq("company", company)).list();
     }
 }

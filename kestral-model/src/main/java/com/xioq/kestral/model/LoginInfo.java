@@ -1,5 +1,8 @@
 package com.xioq.kestral.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 /**
@@ -11,19 +14,32 @@ import javax.persistence.*;
 public class LoginInfo {
 
     @Id
-    @Column (name="id")
+    @Column(name="user_id", nullable=false)
     private Long id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "is_active")
+
+    @Column(name = "is_active", nullable = false)
+    @Type(type="yes_no")
     private boolean active = true;
-    @Column(name = "failed_login_attempts")
+
+    @Column(name = "failed_login_attempts", columnDefinition = "int default 0")
     private int failedLoginAttempts = 0;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @OneToOne
+    @PrimaryKeyJoinColumn
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public LoginInfo() {
+    }
+
+    public LoginInfo(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -71,5 +87,6 @@ public class LoginInfo {
 
     public void setUser(User user) {
         this.user = user;
+        this.id = user.getId();
     }
 }

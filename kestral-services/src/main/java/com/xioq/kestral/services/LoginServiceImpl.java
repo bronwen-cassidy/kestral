@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.FailedLoginException;
+import java.io.Serializable;
 
 /**
  * Created by bronwen.cassidy on 03/06/2015.
@@ -23,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private LoginDao loginDao;
 
-    public User loginUser(LoginInfo loginInfo) throws InvalidLoginCredentialsException, FailedLoginException {
+    public User loginUser(LoginInfo loginInfo) throws FailedLoginException {
         String password = loginInfo.getPassword();
         // todo password encryption, better at db level so it can be decrypted without having to run java code
         LoginInfo validatedLoginInfo = loginDao.findLogin(loginInfo.getUsername(), password);
@@ -36,4 +37,5 @@ public class LoginServiceImpl implements LoginService {
 
         return validatedLoginInfo.getUser();
     }
+
 }

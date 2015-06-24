@@ -1,7 +1,9 @@
 package com.xioq.kestral.controller;
 
 import com.xioq.kestral.model.Client;
+import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.ClientService;
+import com.xioq.kestral.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private LoginService loginService;
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET,headers = "Accept=application/json")
     public Client getClient(@PathVariable Long id) {
@@ -37,8 +41,14 @@ public class ClientController {
         return clientService.findAllForProvider(providerId);
     }
 
+    @RequestMapping(value = "/client/find/{companyId}", method = RequestMethod.GET,headers = "Accept=application/json")
+    public List<Client> findAllClients(@PathVariable Long companyId) {
+        return clientService.findAll(companyId);
+    }
+
     @RequestMapping(value = "/client/add", method = RequestMethod.POST,headers = "Accept=application/json")
     public Client addClient(@RequestBody Client client) {
+        // todo login info
         return clientService.save(client);
     }
 

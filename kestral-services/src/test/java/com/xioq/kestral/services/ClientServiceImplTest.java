@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by bronwen.cassidy on 18/05/2015.
+ * Created by bronwen.cassidy on 18/05/2015
  */
 
 public class ClientServiceImplTest extends DefaultServiceTest {
