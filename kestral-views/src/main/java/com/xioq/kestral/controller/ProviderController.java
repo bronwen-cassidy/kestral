@@ -1,7 +1,6 @@
 package com.xioq.kestral.controller;
 
 import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.LoginService;
 import com.xioq.kestral.services.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,7 @@ public class ProviderController {
 
     @RequestMapping(value="/provider/add", method = RequestMethod.POST,headers="Accept=application/json")
     public Provider addProvider(@RequestBody Provider provider) {
-        // todo separate login info
-        return providerService.create(provider);
+        return providerService.save(provider);
     }
 
     @RequestMapping(value="/provider/{id}", method = RequestMethod.GET,headers="Accept=application/json")

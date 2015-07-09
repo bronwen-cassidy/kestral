@@ -22,7 +22,7 @@ import java.util.Map;
  * handle appointments
  */
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/logins")
 public class LoginController {
 
     @Autowired
@@ -54,5 +54,10 @@ public class LoginController {
             resultMapping.put("errorMsg", "Failed Login");
         }
         return new ResponseEntity<Map>(resultMapping, HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(value="/add", method = RequestMethod.POST,headers="Accept=application/json")
+    public LoginInfo addLoginInfo(@RequestBody LoginInfo loginInfo) {
+        return loginService.addUserLogin(loginInfo);
     }
 }

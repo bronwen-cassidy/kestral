@@ -1,11 +1,25 @@
 /* this will manage all our restful responses we will remove these from the controllers now*/
-var kestralServices = angular.module('kestralServices', ['ngResource', 'ngCookies']);
-
-kestralServices.factory('Client', ['$resource', function ($resource) {
-    return $resource('clients/client/:clientId', {}, {
-        query: {method: 'GET', params: {clientId: 'clientId'}, isArray: true}
-    });
-}]);
+var kestralServices = angular.module('kestralServices', [])
+    .service('clientService', ['$http', function ($http) {
+        var self = this;
+        $http.get('/kestral/clients/client/find/1').
+            success(function (data, status, headers, config) {
+                self.clients = data;
+            }).
+            error(function (data, status, headers, config) {
+                console.log("error!!!");
+                self.errorMsg = "error";
+            }
+        );
+        //var items = [ { id : 1 , user : {firstname : 'Item 0'}}, { id : 2 , user : {firstname : 'Item 1'}} ];
+        this.list = function () {
+            return self.clients;
+        };
+        this.add = function (item) {
+            console.log("Got to item adding");
+        };
+    }
+]);
 
 //kestralServices.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
 //    function ($http, $cookieStore, $rootScope) {

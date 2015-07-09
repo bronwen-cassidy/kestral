@@ -14,7 +14,7 @@ public interface ProviderService {
 
     Provider findById(Long id) throws EntityNotFoundException;
 
-    Provider create(Provider provider);
+    Provider save(Provider provider);
 
     void update(Provider provider);
 

@@ -13,4 +13,5 @@ public interface LoginService {
 
     User loginUser(LoginInfo loginInfo) throws FailedLoginException;
 
+    LoginInfo addUserLogin(LoginInfo loginInfo);
 }

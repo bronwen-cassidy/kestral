@@ -1,9 +1,7 @@
 package com.xioq.kestral.controller;
 
 import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.ClientService;
-import com.xioq.kestral.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +16,6 @@ public class ClientController {
 
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private LoginService loginService;
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET,headers = "Accept=application/json")
     public Client getClient(@PathVariable Long id) {

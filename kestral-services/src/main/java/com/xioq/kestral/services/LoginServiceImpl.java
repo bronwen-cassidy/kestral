@@ -1,8 +1,6 @@
 package com.xioq.kestral.services;
 
-import com.xioq.kestral.model.InvalidLoginCredentialsException;
-import com.xioq.kestral.model.LoginInfo;
-import com.xioq.kestral.model.User;
+import com.xioq.kestral.model.*;
 import com.xioq.kestral.services.dao.LoginDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +21,17 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginDao loginDao;
+    @Autowired
+    private ProviderService providerService;
+    @Autowired
+    private ClientService clientService;
 
     public User loginUser(LoginInfo loginInfo) throws FailedLoginException {
         String password = loginInfo.getPassword();
         // todo password encryption, better at db level so it can be decrypted without having to run java code
         LoginInfo validatedLoginInfo = loginDao.findLogin(loginInfo.getUsername(), password);
         // todo loads of login checks to follow in a login validator
-        if(validatedLoginInfo == null) {
+        if (validatedLoginInfo == null) {
             throw new InvalidLoginCredentialsException();
         }
 
@@ -38,4 +40,26 @@ public class LoginServiceImpl implements LoginService {
         return validatedLoginInfo.getUser();
     }
 
+    public LoginInfo addUserLogin(LoginInfo loginInfo) {
+        User user = loginInfo.getUser();
+        Serializable id = loginDao.save(user);
+        user.setId((Long) id);
+
+        loginInfo.setId((Long)id);
+        loginInfo.setUser(user);
+        loginDao.save(loginInfo);
+
+        String userType = user.getUserType();
+        if (User.PROVIDER_TYPE.equals(userType)) {
+            Provider provider = new Provider();
+            provider.setUser(user);
+            providerService.save(provider);
+        } else {
+            Client client = new Client();
+            client.setUser(user);
+            clientService.save(client);
+        }
+
+        return loginInfo;
+    }
 }

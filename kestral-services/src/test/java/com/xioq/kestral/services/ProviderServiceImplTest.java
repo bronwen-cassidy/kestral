@@ -56,7 +56,7 @@ public class ProviderServiceImplTest {
         u.setCompany(new Company(-1L));
         p.setUser(u);
 
-        Provider newP = providerService.create(p);
+        Provider newP = providerService.save(p);
 
         Provider found = providerService.findById(newP.getId());
 

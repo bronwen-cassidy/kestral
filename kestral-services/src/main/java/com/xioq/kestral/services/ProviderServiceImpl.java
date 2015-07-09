@@ -32,7 +32,7 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Transactional(readOnly = false)
-    public Provider create(Provider provider) {
+    public Provider save(Provider provider) {
         // save the user first then the loginInfo then the provider
         Serializable id = providerDao.save(provider);
         provider.setId((Long)id);
