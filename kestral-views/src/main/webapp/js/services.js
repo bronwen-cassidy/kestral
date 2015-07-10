@@ -20,38 +20,3 @@ var kestralServices = angular.module('kestralServices', [])
         };
     }
 ]);
-
-//kestralServices.factory('AuthenticationService', ['$http', '$cookieStore', '$rootScope',
-//    function ($http, $cookieStore, $rootScope) {
-//        var service = {};
-//
-//        service.login = function (username, password, callback) {
-//
-//            $http.post("/login", {username: username, password: password}, {headers: {'Content-Type': 'application/json'}})
-//                .success(function (response) {
-//                    callback(response);
-//                });
-//
-//        };
-//
-//        service.SetCredentials = function (username, id, companyId) {
-//
-//            $rootScope.globals = {
-//                currentUser: {
-//                    username: username,
-//                    id: id,
-//                    companyId: companyId
-//                }
-//            };
-//
-//            $cookieStore.put('globals', $rootScope.globals);
-//        };
-//
-//        service.ClearCredentials = function () {
-//            $rootScope.globals = {};
-//            $cookieStore.remove('globals');
-//            $http.defaults.headers.common.Authorization = 'Basic ';
-//        };
-//
-//        return service;
-//    }]);

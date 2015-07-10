@@ -1,0 +1,4 @@
+.done { background-color : green ; }
+.pending { background-color : red ; }
+.appointment-available { background-color : #b2dba1; }
+.appointment-taken { background-color : #ff090a; }
