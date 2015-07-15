@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by bronwen.cassidy on 13/05/2015.
+ * Created by bronwen.cassidy on 13/05/2015
  */
 public interface AppointmentDao extends DataAccessor {
 

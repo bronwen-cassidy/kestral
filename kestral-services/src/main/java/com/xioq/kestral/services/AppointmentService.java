@@ -10,12 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by bronwen.cassidy on 14/05/2015.
+ * Created by bronwen.cassidy on 14/05/2015
  */
 @Configuration
 public interface AppointmentService {
-
-    List<Appointment> findAll(Company company);
 
     Appointment save(Appointment appointment);
 

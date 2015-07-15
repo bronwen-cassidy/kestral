@@ -11,7 +11,6 @@ var kestralServices = angular.module('kestralServices', [])
             }
         );
 
-        //var items = [ { id : 1 , user : {firstname : 'Item 0'}}, { id : 2 , user : {firstname : 'Item 1'}} ];
         this.list = function () {
             return self.clients;
         };

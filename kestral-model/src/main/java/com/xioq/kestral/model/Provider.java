@@ -1,7 +1,10 @@
 package com.xioq.kestral.model;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Created by bronwen.cassidy on 08/05/2015.
@@ -16,9 +19,9 @@ public class Provider {
     @Column (name="id")
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinColumn (name = "provider_id")
-    private List<Appointment> appointments;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+    @BatchSize(size = 30)
+    private Set<Appointment> appointments = new LinkedHashSet<Appointment>();
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
@@ -40,11 +43,11 @@ public class Provider {
         this.id = id;
     }
 
-    public List<Appointment> getAppointments() {
+    public Set<Appointment> getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
+    public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
     }
 

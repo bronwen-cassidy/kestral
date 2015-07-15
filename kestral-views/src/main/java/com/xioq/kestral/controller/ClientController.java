@@ -44,9 +44,6 @@ public class ClientController {
 
     @RequestMapping(value = "/client/add", method = RequestMethod.POST,headers = "Accept=application/json")
     public Client addClient(@RequestBody Client client) {
-        // todo login info
         return clientService.save(client);
     }
-
-
 }

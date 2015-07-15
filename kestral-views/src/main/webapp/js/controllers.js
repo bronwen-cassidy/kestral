@@ -2,11 +2,11 @@ var kestralControllers = angular.module('kestralControllers', [])
     .controller('MainController', ['$http', function ($http) {
         var self = this;
         $http.get('/kestral/clients/client/find/1').
-            success(function(data, status, headers, config) {
+            success(function(data) {
                 console.log("whew made it");
                 self.clients = data;
             }).
-            error(function(data, status, headers, config) {
+            error(function(data) {
                 console.log("error!!!");
             }
         );
@@ -18,6 +18,26 @@ var kestralControllers = angular.module('kestralControllers', [])
             self.tab = tab;
         };
     }])
+    .controller('ClientController', ['$http', '$scope','clientService', function($http, $scope, clientService){
+        var self = this;
+        self.newClient = {user: {userType:'C', company: {id: 1 }}};
+
+        self.list = function() {
+            $scope.clients = clientService.list();
+            return $scope.clients;
+        };
+
+        self.add = function() {
+
+            $http.post( '/kestral/clients/client/add', self.newClient)
+                .then(function(response){
+                    $scope.clients.push(response.data);
+                })
+                .then(function(response) {
+                    self.newClient = {};
+                });
+        };
+    }])
     .controller('SubCtrl', ['clientService', function(clientService){
        var self = this;
         self.list = function() {
@@ -27,24 +47,3 @@ var kestralControllers = angular.module('kestralControllers', [])
             clientService.add();
         }
     }]);
-
-kestralControllers.controller('LoginController', ['$http', function ($http) {
-    console.log("Login controller");
-    var self = this;
-    self.submit = function() {
-        $http.post("/kestral/app/login", {loginInfo: self.loginInfo}).
-            success(function(data, status, headers, config) {
-                self.user = data.user;
-                console.log("message = " + data.successMsg);
-
-                // this callback will be called asynchronously
-                // when the response is available
-            }).
-            error(function(data, status, headers, config) {
-                console.log("message = " + data.errorMsg);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            }
-        );
-    }
-}]);

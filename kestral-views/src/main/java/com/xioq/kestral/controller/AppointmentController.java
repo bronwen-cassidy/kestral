@@ -39,11 +39,6 @@ public class AppointmentController {
         return Constants.SUCCESS;
     }
 
-    @RequestMapping(value="/appointment/c/{id}",method = RequestMethod.GET,headers="Accept=application/json")
-    public List<Appointment> findCompanyAppointments(@PathVariable Long id) {
-        return appointmentService.findAll(new Company(id));
-    }
-
     @RequestMapping(value="/appointment/p/{id}",method = RequestMethod.GET,headers="Accept=application/json")
     public List<Appointment> findProviderAppointments(@PathVariable Long id) {
         return appointmentService.findAll(new Provider(id));

@@ -4,13 +4,14 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.xioq.kestral.model.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by bronwen.cassidy on 18/05/2015
  */
-
+@Transactional
 public class ClientServiceImplTest extends DefaultServiceTest {
 
     @Autowired

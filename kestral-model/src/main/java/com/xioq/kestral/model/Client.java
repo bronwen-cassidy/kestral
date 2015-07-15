@@ -1,7 +1,8 @@
 package com.xioq.kestral.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Users class represents patients
@@ -19,9 +20,8 @@ public class Client {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinColumn (name = "client_id")
-    private List<Appointment> appointments;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
+    private Set<Appointment> appointments = new LinkedHashSet<Appointment>();
 
     public Client() {
     }
@@ -46,11 +46,11 @@ public class Client {
         this.user = user;
     }
 
-    public List<Appointment> getAppointments() {
+    public Set<Appointment> getAppointments() {
         return appointments;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
+    public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
     }
 

@@ -1,7 +1,6 @@
 package com.xioq.kestral.services;
 
 import com.xioq.kestral.model.Company;
-import com.xioq.kestral.model.LoginInfo;
 import com.xioq.kestral.model.Provider;
 import com.xioq.kestral.model.User;
 import com.xioq.kestral.services.dao.ProviderDao;
@@ -25,7 +24,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Autowired
     private ProviderDao providerDao;
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     public Provider findById(Long id) throws EntityNotFoundException {
         return providerDao.findById(id, Provider.class);
@@ -33,7 +32,8 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Transactional(readOnly = false)
     public Provider save(Provider provider) {
-        // save the user first then the loginInfo then the provider
+        User user = userService.save(provider.getUser());
+        provider.setUser(user);
         Serializable id = providerDao.save(provider);
         provider.setId((Long)id);
         return provider;

@@ -2,3 +2,7 @@
 .pending { background-color : red ; }
 .appointment-available { background-color : #b2dba1; }
 .appointment-taken { background-color : #ff090a; }
+
+span.table-cell {
+    padding: 2px 2px 2px 2px;
+}

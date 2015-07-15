@@ -7,32 +7,33 @@
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
-<body ng-controller="MainController as ctrl">
+
+<body ng-controller="ClientController as clientCtrl">
 
 <div class="container-fluid">
 
-    <h1> Hello Controllers! </h1>
-    <button ng-click="ctrl.open('first')" > Open First </button>
-    <button ng-click="ctrl.open('second')" > Open Second </button>
-    <div ng-switch on="ctrl.tab" >
-        <div ng-switch-when="first">
-            <div ng-controller= "SubCtrl as sub" >
-                <h3> First tab </h3>
-                <ul>
-                    <li ng-repeat= "item in sub.list()" ><span ng-bind= "item.user.firstName" ></span></li>
-                </ul>
-                <button ng-click= "sub.add()" > Add More Items </button>
-            </div>
+    <h1> Hello Servers!</h1>
+
+    <div class="table-bordered table-striped" ng-repeat="client in clientCtrl.list()">
+        <div class="row">
+            <span class="col-lg-1" ng-bind="client.user.firstName"></span><span class="col-lg-1" ng-bind="client.user.secondName"></span>
         </div>
-        <div ng-switch-when="second">
-            <div ng-controller= "SubCtrl as sub" >
-                <h3> Second tab </h3>
-                <ul>
-                    <li ng-repeat= "item in sub.list()"><span ng-bind= "item.user.firstName" ></span></li>
-                </ul>
-                <button ng-click= "sub.add()" > Add More Items </button>
-            </div>
-        </div>
+    </div>
+
+    <hr/>
+
+    <div>
+        <form name="addForm" ng-submit="clientCtrl.add()" >
+            <input type="text" placeholder="first Name" ng-model="clientCtrl.newClient.user.firstName" required/>
+            <input type="text" placeholder="second Name" ng-model="clientCtrl.newClient.user.secondName" required/>
+            <input type="text" placeholder="Email" ng-model="clientCtrl.newClient.user.contactEmail" required/>
+            <input type="text" placeholder="Telephone" ng-model="clientCtrl.newClient.user.contactTelephone" required/>
+
+            <input type="hidden" ng-model="clientCtrl.newClient.user.company.id" ng-init="clientCtrl.newClient.user.company.id=1"/>
+            <input type="hidden" ng-model="clientCtrl.newClient.user.userType" ng-init="clientCtrl.newClient.user.userType='C'"/>
+
+            <input type="submit" value="Add" ng-disabled="addForm.$invalid" >
+        </form>
     </div>
 </div>
 

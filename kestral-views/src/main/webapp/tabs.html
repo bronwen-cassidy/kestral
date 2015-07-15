@@ -6,37 +6,41 @@
     <title>Kestral Scheduling</title>
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <style> .done { background-color : green ; } .pending { background-color : red ; } </style>
 </head>
 <body ng-controller="MainController as ctrl">
 
 <div class="container-fluid">
 
-    <h2>AngularJS Sample Application</h2>
-    <div ng-repeat="client in ctrl.clients" ng-class="ctrl.getClientClass(client.user.userType)">
-        <!-- NB: Please note the span class must match the variable name in order for the value to display-->
-        <span class="firstName secondName">{{client.user.firstName}}&nbsp;&nbsp;{{client.user.secondName}}</span>
-        <span class="dont-care" ng-bind="client.user.userType"></span>
-        <span class="label" ng-show="client.user.company.name" ng-bind="client.user.company.name"></span>
-        <!--<span class="user" ng-bind="user"></span>-->
-        <!--<div> Index of Element: {{$index}} </div>-->
-        <!--<div> At Even Position: {{$even}} </div>-->
-        <!--<div> At Odd Position: {{$odd}} </div>-->
-        <!--<div> Last: {{$last}} </div>-->
-    </div>
-    <hr/>
-        <div class="row" ng-repeat="client in ctrl.clients">
-            <div class="col-md-1">{{client.user.firstName}}</div>
-            <div class="col-md-1">{{client.user.secondName}}</div>
-            <div class="col-md-1">{{client.user.company.name}}</div>
-            <div class="col-md-1">{{client.user.company.id}}</div>
+    <h1> Hello Controllers! </h1>
+    <button ng-click="ctrl.open('first')" > Open First </button>
+    <button ng-click="ctrl.open('second')" > Open Second </button>
+    <div ng-switch on="ctrl.tab" >
+        <div ng-switch-when="first">
+            <div ng-controller= "SubCtrl as sub" >
+                <h3> First tab </h3>
+                <ul>
+                    <li ng-repeat= "item in sub.list()" ><span ng-bind= "item.user.firstName" ></span></li>
+                </ul>
+                <button ng-click= "sub.add()" > Add More Items </button>
+            </div>
         </div>
+        <div ng-switch-when="second">
+            <div ng-controller= "SubCtrl as sub" >
+                <h3> Second tab </h3>
+                <ul>
+                    <li ng-repeat= "item in sub.list()"><span ng-bind= "item.user.firstName" ></span></li>
+                </ul>
+                <button ng-click= "sub.add()" > Add More Items </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="lib/angular/angular.min.js" type="text/javascript"></script>
 <!--<script src="lib/angular/angular-route.min.js" type="text/javascript"></script>-->
 <!--<script src="lib/angular/angular-resource.min.js" type="text/javascript"></script>-->
 <script src="js/app.js" type="text/javascript"></script>
+<script src="js/services.js" type="text/javascript"></script>
 <script src="js/controllers.js" type="text/javascript"></script>
 
 </body>

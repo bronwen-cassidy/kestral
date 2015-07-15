@@ -12,7 +12,7 @@ import java.util.Date;
 @Configuration
 public interface SchedulingService {
 
-    Schedule findTodaysSchedule(Company company);
+    Schedule findTodaysSchedule(Provider provider);
     Schedule find(Provider provider, Date start, Date end);
     Schedule find(Client client, Date start, Date end);
 }

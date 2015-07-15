@@ -22,12 +22,18 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientDao clientDao;
+    @Autowired
+    private UserService userService;
 
     public Client findById(Long id) throws EntityNotFoundException {
         return clientDao.findById(id, Client.class);
     }
 
     public Client save(Client client) {
+
+        User user = userService.save(client.getUser());
+        client.setUser(user);
+
         Long id = (Long) clientDao.save(client);
         client.setId(id);
         return client;

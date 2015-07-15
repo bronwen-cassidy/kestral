@@ -1,43 +1,37 @@
 package com.xioq.kestral.services;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.*;
-import com.xioq.kestral.services.DateConstants;
-import com.xioq.kestral.services.SchedulingService;
+import com.xioq.kestral.model.Appointment;
+import com.xioq.kestral.model.Client;
+import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.model.Schedule;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
-public class SchedulingServiceImplTest {
+@Transactional
+public class SchedulingServiceImplTest extends DefaultServiceTest {
 
     @Autowired
     private SchedulingService schedulingService;
 
     @Test
     public void testViewDailySchedule() {
-        Company company = new Company(-1L);
-        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        Provider provider = new Provider(-1L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(provider);
         assertNotNull(dailySchedule);
     }
     @Test
     public void testDailyScheduleTodaysDate() {
-        Company company = new Company(-1L);
-        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        Provider provider = new Provider(-1L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(provider);
         DateTime dt = DateTime.now();
         DateTimeFormatter fmt = DateConstants.DATE_TIME_FORMATTER;
         assertEquals(fmt.print(dt), dailySchedule.getStartDate());
@@ -48,8 +42,8 @@ public class SchedulingServiceImplTest {
     public void testScheduleHasAppointments() {
         // add some appointments to the database - lets use dbunit
 
-        Company company = new Company(-1L);
-        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        Provider provider = new Provider(-2L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(provider);
         List<Appointment> appointments = dailySchedule.getAppointments();
         assertEquals(2, appointments.size());
     }
@@ -69,8 +63,8 @@ public class SchedulingServiceImplTest {
     public void testAppointmentsHaveProvider() {
         // add some appointments to the database - lets use dbunit
 
-        Company company = new Company(-1L);
-        Schedule dailySchedule = schedulingService.findTodaysSchedule(company);
+        Provider p = new Provider(-2L);
+        Schedule dailySchedule = schedulingService.findTodaysSchedule(p);
         List<Appointment> appointments = dailySchedule.getAppointments();
         assertEquals(2, appointments.size());
         for (Appointment appointment : appointments) {

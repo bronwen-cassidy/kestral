@@ -1,6 +1,5 @@
 package com.xioq.kestral.services;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.xioq.kestral.model.Appointment;
 import com.xioq.kestral.model.Client;
@@ -8,12 +7,8 @@ import com.xioq.kestral.model.Company;
 import com.xioq.kestral.model.Provider;
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -24,10 +19,8 @@ import static org.junit.Assert.assertNotNull;
 /**
  * Unit test for simple App.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
-public class AppointmentServiceImplTest {
+@Transactional
+public class AppointmentServiceImplTest extends DefaultServiceTest {
 
     @Autowired
     private AppointmentService appointmentService;
@@ -38,18 +31,8 @@ public class AppointmentServiceImplTest {
 
     @Test
     @DatabaseSetup("AppointmentServiceImplTest.testFindAllForCompany.xml")
-    public void testFindAllForCompany() {
-        // add some appointments to the database - lets use dbunit
-        Company c = new Company(-2L);
-        List<Appointment> appointments = appointmentService.findAll(c);
-        assertEquals(7, appointments.size());
-    }
-
-    @Test
-    @DatabaseSetup("AppointmentServiceImplTest.testFindAllForCompany.xml")
     public void testFindAllForProvider() {
         // add some appointments to the database - lets use dbunit
-        Company c = new Company(-2L);
         Provider provider = new Provider(-3L);
         List<Appointment> appointments = appointmentService.findAll(provider);
         assertEquals(6, appointments.size());
@@ -68,9 +51,8 @@ public class AppointmentServiceImplTest {
     @DatabaseSetup("AppointmentServiceImplTest.testAppointment.xml")
     public void testAddAppointment() throws Exception {
         Appointment appointment = new Appointment();
-        appointment.setClient(clientService.findById(new Long(-1)));
-        appointment.setProvider(providerService.findById(new Long(-3)));
-        appointment.setCompany(new Company(-2L));
+        appointment.setClient(clientService.findById(-1L));
+        appointment.setProvider(providerService.findById(-3L));
 
         Appointment savedAppointment = appointmentService.save(appointment);
         assertNotNull(savedAppointment.getId());

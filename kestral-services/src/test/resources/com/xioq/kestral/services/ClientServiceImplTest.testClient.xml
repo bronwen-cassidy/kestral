@@ -27,14 +27,14 @@
     <clients user_id="-1" id="-1"/>
     <clients user_id="-2" id="-2"/>
 
-    <appointments id="-1" company_id="-2" appointment_date="2015-05-04" start_time="9:30" end_time="10:30" client_id="-2" provider_id="-3" label="x" description="further specific info 2"/>
-    <appointments id="-2" company_id="-2" appointment_date="2015-05-04" start_time="10:30" end_time="11:30" client_id="-2" provider_id="-3" label="bio testing 1" description="further specific info"/>
-    <appointments id="-3" company_id="-2" appointment_date="2015-05-05" start_time="13:30" end_time="14:30" client_id="-2" provider_id="-3" label="bio testing 2" description="further specific info"/>
-    <appointments id="-4" company_id="-2" appointment_date="2015-05-06" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 3" description="further specific info"/>
-    <appointments id="-5" company_id="-2" appointment_date="2015-05-09" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 4" description="further specific info"/>
-    <appointments id="-6" company_id="-2" appointment_date="2015-05-11" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
-    <appointments id="-9" company_id="-2" appointment_date="2015-05-11" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-2" label="bio testing 5" description="further specific info"/>
-    <appointments id="-7" company_id="-1" appointment_date="2015-06-04" start_time="09:30" end_time="10:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
-    <appointments id="-8" company_id="-1" appointment_date="2015-06-04" start_time="10:30" end_time="11:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
+    <appointments id="-1" appointment_date="2015-05-04" start_time="9:30" end_time="10:30" client_id="-2" provider_id="-3" label="x" description="further specific info 2"/>
+    <appointments id="-2" appointment_date="2015-05-04" start_time="10:30" end_time="11:30" client_id="-2" provider_id="-3" label="bio testing 1" description="further specific info"/>
+    <appointments id="-3" appointment_date="2015-05-05" start_time="13:30" end_time="14:30" client_id="-2" provider_id="-3" label="bio testing 2" description="further specific info"/>
+    <appointments id="-4" appointment_date="2015-05-06" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 3" description="further specific info"/>
+    <appointments id="-5" appointment_date="2015-05-09" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 4" description="further specific info"/>
+    <appointments id="-6" appointment_date="2015-05-11" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-3" label="bio testing 5" description="further specific info"/>
+    <appointments id="-9" appointment_date="2015-05-11" start_time="11:30" end_time="12:30" client_id="-2" provider_id="-2" label="bio testing 5" description="further specific info"/>
+    <appointments id="-7" appointment_date="2015-06-04" start_time="09:30" end_time="10:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
+    <appointments id="-8" appointment_date="2015-06-04" start_time="10:30" end_time="11:30" client_id="-1" provider_id="-1" label="bio testing" description="further specific info"/>
 
 </dataset>

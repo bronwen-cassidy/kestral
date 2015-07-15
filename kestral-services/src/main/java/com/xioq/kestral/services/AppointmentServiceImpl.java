@@ -29,10 +29,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private WorkingDayService workingDayService;
 
-    public List<Appointment> findAll(Company company) {
-        return appointmentDao.findAll(Appointment.class, company);
-    }
-
     public Appointment save(Appointment appointment) {
         if (appointment.getId() == null) {
             Serializable id = appointmentDao.save(appointment);
@@ -65,7 +61,6 @@ public class AppointmentServiceImpl implements AppointmentService {
                 available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
                 available.setAppointmentDate(date);
                 available.setProvider(provider);
-                available.setCompany(company);
                 available.setClient(client);
                 save(available);
                 return available;
@@ -106,7 +101,6 @@ public class AppointmentServiceImpl implements AppointmentService {
                     available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
                     available.setAppointmentDate(workingDay.getDaysDate());
                     available.setProvider(provider);
-                    available.setCompany(company);
                     availableAppointments.add(available);
                 }
                 nextTime = nextTime.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION);
