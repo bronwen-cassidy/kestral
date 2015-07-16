@@ -1,7 +1,9 @@
 /* this will manage all our restful responses we will remove these from the controllers now*/
 var kestralServices = angular.module('kestralServices', [])
     .service('clientService', ['$http', function ($http) {
+
         var self = this;
+
         $http.get('/kestral/clients/client/find/1').then(
             function (response) {
                 self.clients = response.data;
@@ -14,8 +16,13 @@ var kestralServices = angular.module('kestralServices', [])
         this.list = function () {
             return self.clients;
         };
-        this.add = function (item) {
-            console.log("Got to item adding");
+
+        this.add = function (newClient) {
+            return $http.post( '/kestral/clients/client/add', newClient)
+                .then(function(response) {
+                    return response.data;
+                }
+            );
         };
     }
 ]);

@@ -16,7 +16,12 @@
 
     <div class="table-bordered table-striped" ng-repeat="client in clientCtrl.list()">
         <div class="row">
-            <span class="col-lg-1" ng-bind="client.user.firstName"></span><span class="col-lg-1" ng-bind="client.user.secondName"></span>
+            <span class="col-lg-1" ng-bind="client.user.firstName"></span>
+            <span class="col-lg-1" ng-bind="client.user.secondName"></span>
+            <span class="col-lg-1" ng-bind="client.id">
+                <!--<a href="#!/edit"><i class="icon-edit"></i></a>-->
+                <button ng-click="clientCtrl.delete(client.id)"><i class="icon-minus-sign"></i></button>
+            </span>
         </div>
     </div>
 

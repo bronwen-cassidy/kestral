@@ -18,8 +18,9 @@ var kestralControllers = angular.module('kestralControllers', [])
             self.tab = tab;
         };
     }])
-    .controller('ClientController', ['$http', '$scope','clientService', function($http, $scope, clientService){
+    .controller('ClientController', ['$scope','clientService', function($scope, clientService){
         var self = this;
+        // todo note the company id will come from the scope when the user logs in
         self.newClient = {user: {userType:'C', company: {id: 1 }}};
 
         self.list = function() {
@@ -28,15 +29,18 @@ var kestralControllers = angular.module('kestralControllers', [])
         };
 
         self.add = function() {
-
-            $http.post( '/kestral/clients/client/add', self.newClient)
-                .then(function(response){
-                    $scope.clients.push(response.data);
-                })
-                .then(function(response) {
-                    self.newClient = {};
-                });
+            var clientDataPromise = clientService.add(self.newClient);
+            clientDataPromise.then(function(result){
+                $scope.clients.push(result);
+            }).then(function() {
+                self.newClient = {user: {userType:'C', company: {id: 1 }}};
+            });
         };
+
+        self.delete = function(clientId) {
+            console.log("the client id i have been given is: " + clientId)
+        };
+
     }])
     .controller('SubCtrl', ['clientService', function(clientService){
        var self = this;
