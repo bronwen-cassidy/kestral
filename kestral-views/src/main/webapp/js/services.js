@@ -8,7 +8,7 @@ var kestralServices = angular.module('kestralServices', [])
             function (response) {
                 self.clients = response.data;
             }, function(errResponse) {
-                console.log("error!!!");
+                console.log(errResponse);
                 self.errorMsg = "error";
             }
         );
@@ -19,6 +19,14 @@ var kestralServices = angular.module('kestralServices', [])
 
         this.add = function (newClient) {
             return $http.post( '/kestral/clients/client/add', newClient)
+                .then(function(response) {
+                    return response.data;
+                }
+            );
+        };
+
+        this.delete = function (clientId) {
+            return $http.get( '/kestral/clients/client/delete/'+ clientId)
                 .then(function(response) {
                     return response.data;
                 }

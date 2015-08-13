@@ -18,27 +18,40 @@ var kestralControllers = angular.module('kestralControllers', [])
             self.tab = tab;
         };
     }])
-    .controller('ClientController', ['$scope','clientService', function($scope, clientService){
+    .controller('ClientController', ['clientService', function(clientService){
         var self = this;
-        // todo note the company id will come from the scope when the user logs in
+        // todo note the company id will come from self when we have a log in
         self.newClient = {user: {userType:'C', company: {id: 1 }}};
 
         self.list = function() {
-            $scope.clients = clientService.list();
-            return $scope.clients;
+            self.clients = clientService.list();
+            return self.clients;
         };
 
         self.add = function() {
             var clientDataPromise = clientService.add(self.newClient);
             clientDataPromise.then(function(result){
-                $scope.clients.push(result);
+                self.clients.push(result);
             }).then(function() {
                 self.newClient = {user: {userType:'C', company: {id: 1 }}};
             });
         };
 
-        self.delete = function(clientId) {
-            console.log("the client id i have been given is: " + clientId)
+        self.delete = function(clientId, elemIndex) {
+
+            var deleteSuccessPromise = clientService.delete(clientId);
+
+            deleteSuccessPromise.then(function(result) {
+                console.log(result);
+                for(var i = 0; i < self.clients.length; i++) {
+                    if(clientId == self.clients[i].id) {
+                        console.log(" found the client in the list with id : " + clientId);
+                        self.clients.splice(i, 1);
+                        break;
+                    }
+                }
+            });
+
         };
 
     }])

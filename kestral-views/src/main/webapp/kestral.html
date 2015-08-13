@@ -18,10 +18,7 @@
         <div class="row">
             <span class="col-lg-1" ng-bind="client.user.firstName"></span>
             <span class="col-lg-1" ng-bind="client.user.secondName"></span>
-            <span class="col-lg-1" ng-bind="client.id">
-                <!--<a href="#!/edit"><i class="icon-edit"></i></a>-->
-                <button ng-click="clientCtrl.delete(client.id)"><i class="icon-minus-sign"></i></button>
-            </span>
+            <span class="col-lg-1" ng-bind="client.id" ng-click="clientCtrl.delete(client.id,$index)"></span>
         </div>
     </div>
 
