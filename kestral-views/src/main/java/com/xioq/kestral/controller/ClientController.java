@@ -37,7 +37,7 @@ public class ClientController {
         return clientService.findAllForProvider(providerId);
     }
 
-    @RequestMapping(value = "/client/find/{companyId}", method = RequestMethod.GET,headers = "Accept=application/json")
+    @RequestMapping(value = "/client/search/forcompany/{companyId}", method = RequestMethod.GET,headers = "Accept=application/json")
     public List<Client> findAllClients(@PathVariable Long companyId) {
         return clientService.findAll(companyId);
     }

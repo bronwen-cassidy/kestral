@@ -3,8 +3,8 @@ var kestralServices = angular.module('kestralServices', [])
     .service('clientService', ['$http', function ($http) {
 
         var self = this;
-
-        $http.get('/kestral/clients/client/find/1').then(
+        // todo inline this into a search function to be consistent
+        $http.get('/kestral/clients/client/search/forcompany/:companyId').then(
             function (response) {
                 self.clients = response.data;
             }, function(errResponse) {
@@ -32,5 +32,13 @@ var kestralServices = angular.module('kestralServices', [])
                 }
             );
         };
+
+        this.find = function(clientId) {
+            return $http.get( '/kestral/clients/client/'+ clientId)
+                .then(function(response) {
+                    return response.data;
+                }
+            );
+        }
     }
 ]);

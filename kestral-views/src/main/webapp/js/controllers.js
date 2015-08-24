@@ -23,6 +23,12 @@ var kestralControllers = angular.module('kestralControllers', [])
         // todo note the company id will come from self when we have a log in
         self.newClient = {user: {userType:'C', company: {id: 1 }}};
 
+        self.find = function(clientId) {
+            clientService.find(clientId).then(function(result){
+                self.client = result;
+            });
+        };
+
         self.list = function() {
             self.clients = clientService.list();
             return self.clients;
