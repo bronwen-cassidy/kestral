@@ -1,7 +1,7 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.Client;
-import com.xioq.kestral.services.ClientService;
+import com.xioq.kestral.services.clients.Client;
+import com.xioq.kestral.services.clients.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

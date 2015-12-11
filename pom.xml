@@ -17,7 +17,6 @@
 
     <modules>
         <module>kestral-services</module>
-        <module>kestral-model</module>
         <module>kestral-views</module>
         <module>kestral-commons</module>
     </modules>

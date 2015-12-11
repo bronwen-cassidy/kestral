@@ -1,11 +1,11 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.InvalidLoginCredentialsException;
-import com.xioq.kestral.model.LoginInfo;
-import com.xioq.kestral.model.User;
-import com.xioq.kestral.services.ClientService;
-import com.xioq.kestral.services.LoginService;
-import com.xioq.kestral.services.ProviderService;
+import com.xioq.kestral.services.security.InvalidLoginCredentialsException;
+import com.xioq.kestral.services.security.LoginInfo;
+import com.xioq.kestral.services.security.User;
+import com.xioq.kestral.services.clients.ClientService;
+import com.xioq.kestral.services.security.LoginService;
+import com.xioq.kestral.services.providers.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

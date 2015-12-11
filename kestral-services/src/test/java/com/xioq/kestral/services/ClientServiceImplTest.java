@@ -1,7 +1,12 @@
 package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.*;
+import com.xioq.kestral.services.clients.Client;
+import com.xioq.kestral.services.clients.ClientService;
+import com.xioq.kestral.services.common.Address;
+import com.xioq.kestral.services.providers.Company;
+import com.xioq.kestral.services.security.User;
+import com.xioq.kestral.services.security.UserType;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

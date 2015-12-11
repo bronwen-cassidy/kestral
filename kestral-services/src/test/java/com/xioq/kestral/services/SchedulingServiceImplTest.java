@@ -1,10 +1,11 @@
 package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.model.Schedule;
+import com.xioq.kestral.services.appointments.Appointment;
+import com.xioq.kestral.services.clients.Client;
+import com.xioq.kestral.services.providers.Provider;
+import com.xioq.kestral.services.appointments.Schedule;
+import com.xioq.kestral.services.appointments.SchedulingService;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;

@@ -1,9 +1,9 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.model.Schedule;
+import com.xioq.kestral.services.providers.Provider;
+import com.xioq.kestral.services.appointments.Schedule;
 import com.xioq.kestral.services.DateConstants;
-import com.xioq.kestral.services.SchedulingService;
+import com.xioq.kestral.services.appointments.SchedulingService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

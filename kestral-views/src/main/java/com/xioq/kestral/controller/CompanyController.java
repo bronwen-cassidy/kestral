@@ -1,9 +1,7 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Company;
-import com.xioq.kestral.services.AppointmentService;
-import com.xioq.kestral.services.CompanyService;
+import com.xioq.kestral.services.providers.Company;
+import com.xioq.kestral.services.providers.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

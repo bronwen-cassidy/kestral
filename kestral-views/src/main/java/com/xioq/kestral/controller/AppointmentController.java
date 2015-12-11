@@ -1,10 +1,10 @@
 package com.xioq.kestral.controller;
 
-import com.xioq.kestral.model.Appointment;
-import com.xioq.kestral.model.Client;
-import com.xioq.kestral.model.Company;
-import com.xioq.kestral.model.Provider;
-import com.xioq.kestral.services.AppointmentService;
+import com.xioq.kestral.services.appointments.Appointment;
+import com.xioq.kestral.services.clients.Client;
+import com.xioq.kestral.services.providers.Company;
+import com.xioq.kestral.services.providers.Provider;
+import com.xioq.kestral.services.appointments.AppointmentService;
 import com.xioq.kestral.services.DateConstants;
 import com.xioq.kestral.services.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

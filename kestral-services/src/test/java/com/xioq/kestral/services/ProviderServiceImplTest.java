@@ -1,7 +1,8 @@
 package com.xioq.kestral.services;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.xioq.kestral.model.Provider;
+import com.xioq.kestral.services.providers.Provider;
+import com.xioq.kestral.services.providers.ProviderService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
