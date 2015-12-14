@@ -1,0 +1,23 @@
+
+<div class="container">
+    <h2>Login</h2>
+
+    <form ng-submit="submit()">
+        <input type="text" ng-model="loginInfo.username"/>
+        <input type="password" ng-model="loginInfo.password"/>
+        <input type="submit" value="Submit!!" >
+    </form>
+
+    <br/>
+
+    <h2>Register?</h2>
+    <input type="text" ng-model="newUser.username"/>
+    <input type="password" ng-model="newUser.password"/>
+    <input type="text" ng-model="newUser.email"/>
+    <select>
+        <option ng-repeat="userType in userTypes" value="{{userType.key}}">{{userType.value}}</option>
+    </select>
+    <button ng-click="addNewUser()">Register!!</button>
+
+
+</div>

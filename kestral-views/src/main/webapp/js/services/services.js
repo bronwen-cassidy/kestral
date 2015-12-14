@@ -4,8 +4,8 @@ var kestralServices = angular.module('kestralServices', [])
 
         var self = this;
         // todo inline this into a search function to be consistent
-        $http.get('/kestral/clients/client/search/forcompany/:companyId').then(
-            function (response) {
+        $http.get('/kestral/clients/client/search/forcompany/:companyId')
+            .then(function (response) {
                 self.clients = response.data;
             }, function(errResponse) {
                 console.log(errResponse);
@@ -40,5 +40,25 @@ var kestralServices = angular.module('kestralServices', [])
                 }
             );
         }
-    }
-]);
+    }])
+
+    .service('scheduleService', ['$http', function($http) {
+        var self = this;
+
+        // todo after the login
+    }])
+
+    .service('loginService', ['$http', function($http) {
+        var self = this;
+
+        this.login = function(username, password) {
+            var data = $.param({'loginInfo.username': username, 'loginInfo.password': password});
+
+            return $http.post('/kestral/logins/login/', data)
+                .then(function(response){
+                    // this will the user
+                    return response.data;
+                });
+        }
+    }])
+;

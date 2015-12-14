@@ -37,7 +37,6 @@ public class LoginController {
     public ResponseEntity<Map> clientLogin(@RequestBody LoginInfo loginInfo) {
         Map<String, Object> resultMapping = new HashMap<String, Object>();
         try {
-            // todo need to return a client and/ or an error
             User user = loginService.loginUser(loginInfo);
             if(user.isProvider()) {
                 resultMapping.put("provider", providerService.find(new User(user.getId())));
@@ -47,6 +46,7 @@ public class LoginController {
             resultMapping.put("user", user);
             resultMapping.put("successMsg", "Login Successful");
             return new ResponseEntity<Map>(resultMapping, HttpStatus.OK);
+
         } catch (InvalidLoginCredentialsException e) {
             resultMapping.put("errorMsg", "Invalid username or password");
 

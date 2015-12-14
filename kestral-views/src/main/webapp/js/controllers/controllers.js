@@ -1,23 +1,5 @@
 var kestralControllers = angular.module('kestralControllers', [])
-    .controller('MainController', ['$http', function ($http) {
-        var self = this;
-        $http.get('/kestral/clients/client/find/1').
-            success(function(data) {
-                console.log("whew made it");
-                self.clients = data;
-            }).
-            error(function(data) {
-                console.log("error!!!");
-            }
-        );
-        self.getClientClass = function(userType) {
-            return {done : userType == 'C', pending: userType == 'P'};
-        };
-        self.tab = 'first';
-        self.open = function(tab) {
-            self.tab = tab;
-        };
-    }])
+
     .controller('ClientController', ['clientService', function(clientService){
         var self = this;
         // todo note the company id will come from self when we have a log in
@@ -61,12 +43,25 @@ var kestralControllers = angular.module('kestralControllers', [])
         };
 
     }])
-    .controller('SubCtrl', ['clientService', function(clientService){
-       var self = this;
-        self.list = function() {
-            return clientService.list();
+
+    .controller('ScheduleController',['scheduleService', function(scheduleService){
+
+    }])
+
+    .controller('LoginController', ['loginService', function(loginService){
+        var self = this;
+        self.submit = function() {
+            var userPromise = loginService.login(self.loginInfo.username, self.loginInfo.password);
+            userPromise.then(function(result) {
+                if(result.user.userType === 'C') {
+                    self.client = result.client;
+                } else if (result.user.userType === 'P') {
+                    self.provider = result.provider;
+                }
+                self.user = result.user;
+            });
         };
-        self.add = function() {
-            clientService.add();
-        }
+
+        // more functions here
+
     }]);
