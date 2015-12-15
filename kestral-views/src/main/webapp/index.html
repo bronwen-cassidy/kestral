@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kestral Scheduling</title>
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
@@ -13,7 +14,7 @@
 
 <div class="container-fluid">
     <h1> Hello Servers!</h1>
-    <div class="page-header" ng-include="pages/header.html"></div>
+    <div class="page-header" ng-include src="'app/partials/header.html'"></div>
     <!--<div class="nav-tabs">all the top tabs needed in whatever view</div>-->
 
     <div class="tab-content" ng-view>
@@ -24,14 +25,16 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 <script src="scripts/angular/angular.min.js"></script>
-<script src="scripts/angular/angular-route.min.js" type="text/javascript"></script>
+<script src="scripts/angular/angular-route.min.js"></script>
+<script src="scripts/angular/angular-animate.min.js"></script>
 
-<script src="js/app.js"></script>
-<script src="js/services/services.js"></script>
-<script src="js/controllers/controllers.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+
+<script src="app/app.js"></script>
+<script src="app/services/services.js"></script>
+<script src="app/controllers/controllers.js"></script>
 
 </body>
 </html>

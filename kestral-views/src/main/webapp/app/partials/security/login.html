@@ -1,0 +1,31 @@
+
+<div class="container-fluid">
+
+    <h2>Login</h2>
+
+    <div class="row col-md-offset-4">
+        <form ng-submit="submit()">
+            <div class="row">
+                <span class="col-md-2"><label for="loginInfo.username">Username:</label></span>
+                <span class="col-md-3"><input id="loginInfo.username" type="text" ng-model="loginInfo.username"/></span>
+            </div>
+            <div class="row">
+                <span class="col-md-2"><label for="loginInfo.password">Password:</label></span>
+                <span class="col-md-3"><input id="loginInfo.password" type="password" ng-model="loginInfo.password"/></span>
+            </div>
+            <div class="row"><span class="col-md-8 col-md-offset-1"><input type="submit" value="Submit!!" ></span></div>
+        </form>
+    </div>
+    <br/>
+
+    <h2>Register?</h2>
+    <input type="text" ng-model="newUser.username"/>
+    <input type="password" ng-model="newUser.password"/>
+    <input type="text" ng-model="newUser.email"/>
+    <select>
+        <option ng-repeat="userType in userTypes" value="{{userType.key}}">{{userType.value}}</option>
+    </select>
+    <button ng-click="addNewUser()">Register!!</button>
+
+
+</div>
