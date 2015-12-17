@@ -44,21 +44,32 @@ var kestralControllers = angular.module('kestralControllers', [])
 
     }])
 
-    .controller('ScheduleController',['scheduleService', function(scheduleService){
-
+    .controller('UserController',['userService', function(userService){
+        var self = this;
+        self.register = function() {
+            self.dataLoading = true;
+            // todo
+        }
     }])
 
-    .controller('LoginController', ['loginService', function(loginService){
+    .controller('LoginController', ['$scope','loginService', function($scope, loginService){
         var self = this;
-        self.submit = function() {
-            var userPromise = loginService.login(self.loginInfo.username, self.loginInfo.password);
+        $scope.logInUser = function() {
+            self.dataLoading = true;
+            var userPromise = loginService.login(self.loginInfo);
             userPromise.then(function(result) {
-                if(result.user.userType === 'C') {
-                    self.client = result.client;
-                } else if (result.user.userType === 'P') {
-                    self.provider = result.provider;
+                if(result.success) {
+                    if(result.user.userType === 'C') {
+                        self.client = result.client;
+                    } else if (result.user.userType === 'P') {
+                        self.provider = result.provider;
+                    }
+                    self.user = result.user;
+                    //$location.path('/');
+                } else {
+                    // todo errors?
+                    self.dataLoading = false;
                 }
-                self.user = result.user;
             });
         };
 

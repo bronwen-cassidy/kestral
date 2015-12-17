@@ -42,17 +42,17 @@ var kestralServices = angular.module('kestralServices', [])
         }
     }])
 
-    .service('scheduleService', ['$http', function($http) {
+    .service('userService', ['$http', function($http) {
         var self = this;
 
-        // todo after the login
+        // todo register etc
     }])
 
     .service('loginService', ['$http', function($http) {
         var self = this;
 
-        this.login = function(username, password) {
-            var data = $.param({'loginInfo.username': username, 'loginInfo.password': password});
+        this.login = function(loginInfo) {
+            var data = $.param({'loginInfo': loginInfo});
 
             return $http.post('/kestral/logins/login/', data)
                 .then(function(response){
