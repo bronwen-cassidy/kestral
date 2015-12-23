@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+
 </head>
 
 
-<body>
+<body ng-cloak class="ng-cloak">
 
 <div class="container-fluid">
 
     <div class="page-header" ng-include src="'app/partials/header.html'"></div>
 
     <h1>Welcome to the Kestral Scheduling System</h1>
+
     <div class="tab-content" ng-view>
         <!-- all templates go in here -->
     </div>

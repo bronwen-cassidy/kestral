@@ -52,11 +52,13 @@ var kestralControllers = angular.module('kestralControllers', [])
         }
     }])
 
-    .controller('LoginController', ['$scope','loginService', function($scope, loginService){
+    .controller('LoginController', ['$scope', '$location','loginService', function($scope, $location, loginService){
         var self = this;
         $scope.logInUser = function() {
             self.dataLoading = true;
-            var userPromise = loginService.login(self.loginInfo);
+            var loginInfo = $scope.loginInfo;
+            var userPromise = loginService.login(loginInfo);
+
             userPromise.then(function(result) {
                 if(result.success) {
                     if(result.user.userType === 'C') {
@@ -65,7 +67,7 @@ var kestralControllers = angular.module('kestralControllers', [])
                         self.provider = result.provider;
                     }
                     self.user = result.user;
-                    //$location.path('/');
+                    $location.path('#/home');
                 } else {
                     // todo errors?
                     self.dataLoading = false;

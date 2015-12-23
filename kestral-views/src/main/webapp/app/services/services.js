@@ -49,15 +49,14 @@ var kestralServices = angular.module('kestralServices', [])
     }])
 
     .service('loginService', ['$http', function($http) {
-        var self = this;
 
         this.login = function(loginInfo) {
-            var data = $.param({'loginInfo': loginInfo});
-
-            return $http.post('/kestral/logins/login/', data)
+            return $http.post('/kestral/logins/login/', loginInfo)
                 .then(function(response){
                     // this will the user
                     return response.data;
+                }, function (errResponse) {
+                    return errResponse;
                 });
         }
     }])
