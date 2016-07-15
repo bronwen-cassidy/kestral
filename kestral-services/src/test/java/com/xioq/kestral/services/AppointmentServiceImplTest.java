@@ -122,7 +122,7 @@ public class AppointmentServiceImplTest extends DefaultServiceTest {
         DateTime startPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
         DateTime endPeriod = DateConstants.DATE_TIME_FORMATTER.parseDateTime("2015-05-04");
         // we should split the availability into days??
-        List<Appointment> availableSlots = appointmentService.findAvailableAppointments(c, p, startPeriod.toDate(), endPeriod.toDate());
+        List<Appointment> availableSlots = appointmentService.findAvailableAppointmentSlots(c, p, startPeriod.toDate(), endPeriod.toDate());
         assertEquals("There are 2 here as we have not taken into consideration the lunch period or even breaks", 2, availableSlots.size());
     }
 

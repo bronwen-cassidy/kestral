@@ -6,6 +6,8 @@ import com.xioq.kestral.services.clients.Client;
 import com.xioq.kestral.services.providers.Provider;
 import com.xioq.kestral.services.appointments.Schedule;
 import com.xioq.kestral.services.appointments.SchedulingService;
+import com.xioq.kestral.services.security.User;
+import junit.framework.TestCase;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
@@ -68,12 +70,12 @@ public class SchedulingServiceImplTest extends DefaultServiceTest {
         Schedule dailySchedule = schedulingService.findTodaysSchedule(p);
         List<Appointment> appointments = dailySchedule.getAppointments();
         assertEquals(2, appointments.size());
-        for (Appointment appointment : appointments) {
-            // client attends an appointment with
-            Provider provider = appointment.getProvider();
-            assertNotNull(provider);
-            assertEquals("Peter", provider.getUser().getFirstName());
-        }
+        appointments.forEach(appointment -> assertNotNull(appointment.getProvider()));
+        appointments.forEach(appointment -> assertEquals("Peter", appointment.getProvider().getUser().getFirstName()));
+
+        // todo work out streams Appointment app = appointments.stream().map(Provider::getUser).findFirst();
+        // playing with lambdas
+        // appointments.forEach(TestCase::assertNotNull);
     }
 
     @Test

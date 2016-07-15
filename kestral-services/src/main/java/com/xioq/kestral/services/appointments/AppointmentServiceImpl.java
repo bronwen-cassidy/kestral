@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by bronwen.cassidy on 14/05/2015.
@@ -55,21 +55,23 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     public Appointment makeAppointment(Company company, Provider provider, Client client, Date date, String startTime) {
-        List<Appointment> availableAppointments = findAvailableAppointments(company, provider, date, date);
-        for (Appointment availableAppointment : availableAppointments) {
-            if(availableAppointment.getStartTime().equals(startTime)) {
-                LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(startTime);
-                Appointment available = new Appointment();
-                available.setStartTime(startTime);
-                available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
-                available.setAppointmentDate(date);
-                available.setProvider(provider);
-                available.setClient(client);
-                save(available);
-                return available;
-            }
+        List<Appointment> availableAppointments = findAvailableAppointmentSlots(company, provider, date, date);
+        LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(startTime);
+
+        Appointment available = availableAppointments.stream()
+                .filter(availableAppointment -> availableAppointment.getStartTime().equals(startTime))
+                .findFirst().get();
+
+        if (available != null) {
+            available.setStartTime(startTime);
+            available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
+            available.setAppointmentDate(date);
+            available.setProvider(provider);
+            available.setClient(client);
+            save(available);
         }
-        return null;
+
+        return available;
     }
 
     public void delete(Long id) {
@@ -81,24 +83,21 @@ public class AppointmentServiceImpl implements AppointmentService {
         return save(appointment);
     }
 
-    public List<Appointment> findAvailableAppointments(Company company, Provider provider, Date startDate, Date endDate) {
+    public List<Appointment> findAvailableAppointmentSlots(Company company, Provider provider, Date startDate, Date endDate) {
         // get the list of all possible time periods (30 mins for now) per day for each day in the interim period
         List<Appointment> occupiedAppointments = new ArrayList<Appointment>(appointmentDao.find(provider, startDate, endDate));
 
         List<WorkingDay> workingDays = workingDayService.find(company, startDate, endDate);
         List<Appointment> availableAppointments = new ArrayList<Appointment>();
-        for (WorkingDay workingDay : workingDays) {
-            // for each day and each time slot findById a corresponding appointment time of make a new one
 
-            // todo remove breaks periods?? put into configuration
+        workingDays.forEach(workingDay -> {
             LocalTime tme = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getStartTime());
             LocalTime endOfTheDay = DateConstants.TIME_FORMATTER.parseLocalTime(workingDay.getEndTime());
             LocalTime nextTime = tme;
             while (nextTime.isBefore(endOfTheDay)) {
-                // FIND AN APPOINTMENT starting at this time remove as you findById
                 String startTime = DateConstants.TIME_FORMATTER.print(nextTime);
                 boolean found = filterAppointments(occupiedAppointments, workingDay.getDaysDate(), startTime);
-                if(!found) {
+                if (!found) {
                     Appointment available = new Appointment();
                     available.setStartTime(startTime);
                     available.setEndTime(tme.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION).toString());
@@ -108,21 +107,16 @@ public class AppointmentServiceImpl implements AppointmentService {
                 }
                 nextTime = nextTime.plusMinutes(COMPANY_SPECIFIC_TIME_SLOT_CONFIGURATION);
             }
-        }
+        });
 
         return availableAppointments;
     }
 
     private boolean filterAppointments(List<Appointment> occupiedAppointments, Date daysDate, String startTime) {
-        for (Iterator<Appointment> iterator = occupiedAppointments.iterator(); iterator.hasNext(); ) {
-            Appointment next = iterator.next();
 
-            if(next.getAppointmentDate().equals(daysDate) && next.getStartTime().equals(startTime)) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
+        return occupiedAppointments.removeIf(
+                appointment -> appointment.getAppointmentDate().equals(daysDate)
+                        && appointment.getStartTime().equals(startTime));
     }
 
     public boolean cancelAppointment(Appointment appointment) {

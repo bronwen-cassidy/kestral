@@ -62,9 +62,10 @@ public class DataAccessorImpl implements DataAccessor {
     public <T> List<T> find(Class<T> clazz, Map<String, Object> equalFilters) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(clazz);
-        for (Map.Entry<String, Object> entry : equalFilters.entrySet()) {
-            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-        }
+
+        equalFilters.entrySet().forEach(
+                (Map.Entry<String, Object> entry) -> criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()))
+        );
         return criteria.list();
     }
 }
